@@ -8,11 +8,15 @@ class Overworld {
 
   startGameLoop() {
     const step = () => {
+      //clear drawing before each frame is drawn
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
       //draw lower layer
       this.map.drawLowerImage(this.ctx);
 
       //draw game objects
       Object.values(this.map.gameObjects).forEach((object) => {
+        object.x += 0.1;
         object.sprite.draw(this.ctx);
       });
 
