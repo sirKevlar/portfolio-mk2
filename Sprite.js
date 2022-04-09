@@ -50,7 +50,6 @@ class Sprite {
   }
 
   draw(ctx) {
-      console.log(this);
     const x = this.gameObject.x * 16 - 14;
     const y = this.gameObject.y * 16 + 8;
 
