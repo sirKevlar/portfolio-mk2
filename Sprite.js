@@ -9,7 +9,7 @@ class Sprite {
 
     // Config animation & state
     this.animations = config.animations || {
-      "idle-right": [
+      'idle-right': [
         [0, 0],
         [1, 0],
         [2, 0],
@@ -17,7 +17,7 @@ class Sprite {
         [4, 0],
         [5, 0],
       ],
-      "walk-right": [
+      'walk-right': [
         [0, 1],
         [1, 1],
         [2, 1],
@@ -25,7 +25,7 @@ class Sprite {
         [4, 1],
         [5, 1],
       ],
-      "idle-left": [
+      'idle-left': [
         [0, 5],
         [1, 5],
         [2, 5],
@@ -33,7 +33,7 @@ class Sprite {
         [4, 5],
         [5, 5],
       ],
-      "walk-left": [
+      'walk-left': [
         [0, 6],
         [1, 6],
         [2, 6],
@@ -41,7 +41,7 @@ class Sprite {
         [4, 6],
         [5, 6],
       ],
-      "idle-down": [
+      'idle-down': [
         [0, 10],
         [1, 10],
         [2, 10],
@@ -49,7 +49,7 @@ class Sprite {
         [4, 10],
         [5, 10],
       ],
-      "walk-down": [
+      'walk-down': [
         [0, 11],
         [1, 11],
         [2, 11],
@@ -57,7 +57,7 @@ class Sprite {
         [4, 11],
         [5, 11],
       ],
-      "idle-up": [
+      'idle-up': [
         [0, 12],
         [1, 12],
         [2, 12],
@@ -65,7 +65,7 @@ class Sprite {
         [4, 12],
         [5, 12],
       ],
-      "walk-up": [
+      'walk-up': [
         [0, 13],
         [1, 13],
         [2, 13],
@@ -77,7 +77,7 @@ class Sprite {
     this.currentAnimation = config.currentAnimation || 'idle-right';
     this.currentAnimationFrame = 0;
 
-    this.animationFrameLimit = config.animationFrameLimit || 16;
+    this.animationFrameLimit = config.animationFrameLimit || 6;
     this.animationFrameProgress = this.animationFrameLimit;
 
     //Reference game object
@@ -112,9 +112,9 @@ class Sprite {
     }
   }
 
-  draw(ctx) {
-    const x = this.gameObject.x - 14;
-    const y = this.gameObject.y + 8;
+  draw(ctx, cameraFocusItem) {
+    const x = this.gameObject.x - 16 + utils.withGrid(15) - cameraFocusItem.x;
+    const y = this.gameObject.y + 2 + utils.withGrid(7.5) - cameraFocusItem.y;
 
     const [frameX, frameY] = this.frame;
 
