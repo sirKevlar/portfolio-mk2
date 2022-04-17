@@ -1,0 +1,33 @@
+:root {
+    --border-color: #291D4D;
+    --dialog-background: #d9d4bc;
+    --menu-background: #c6c0b9;
+    --menu-border-color: #3A160D;
+    --menu-selected-background: #7FC2FF;
+    --menu-font-color: #5405a4;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #333;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.game-container {
+    position: relative;
+    width: 500px;
+    height: 320px;
+    margin: 0 auto;
+    outline: 1px solid white;
+    transform: scale(2) translateY(50%);
+}
+
+.game-container canvas {
+    image-rendering: pixelated;
+}
