@@ -18,12 +18,12 @@
 }
 
 .Combatant[data-team="player"] {
-    left: 77px;
+    left: 120px;
     top: 98px;
 }
 
 .Combatant[data-team="enemy"] {
-    right: 77px;
+    right: 120px;
     top: 164px;
 }
 
@@ -104,7 +104,7 @@
 
 .Combatant_status {
     position: absolute;
-    font-size: 5px;
+    font-size: 4px;
     left: 47px;
     bottom: -3px;
     padding-left: 2px;
@@ -128,11 +128,11 @@
 }
 .Record[data-team="player"] {
     top: 124px;
-    left: 88px;
+    left: 138px;
 }
 .Record[data-team="enemy"] {
     top: 190px;
-    right: 97px;
+    right: 130px;
 }
 .Record[data-active="false"] {
     opacity:0;
