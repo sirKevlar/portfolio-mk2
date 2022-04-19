@@ -23,9 +23,6 @@ class BattleEvent {
   async stateChange(resolve) {
     const { caster, target, damage, recover, status, action } = this.event;
     let who = this.event.onCaster ? caster : target;
-    if (action.targetType === 'friendly') {
-      who = caster;
-    }
 
     if (damage) {
       //reduce target HP
@@ -71,6 +68,7 @@ class BattleEvent {
     const menu = new SubmissionMenu({
       caster: this.event.caster,
       enemy: this.event.enemy,
+      items: this.battle.items,
       onComplete: (submission) => {
         //submission { what move to use and on whom }
         resolve(submission);

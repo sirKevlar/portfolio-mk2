@@ -21,7 +21,7 @@ window.Records = {
     type: RecordTypes.hiphop,
     src: '/assets/objects/hiphopRecord.png',
     icon: '/assets/icons/hiphop.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['groovyStatus', 'offKeyStatus', 'damage1'],
   },
   r001: {
     name: 'Ramble on',

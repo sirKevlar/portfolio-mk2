@@ -1,6 +1,7 @@
 window.Actions = {
   damage1: {
     name: 'kick drum "boom"',
+    description: 'A kick in the soft bits (enemy loses 10 hp)',
     success: [
       {
         type: 'textMessage',
@@ -12,6 +13,7 @@ window.Actions = {
   },
   groovyStatus: {
     name: 'In the groove',
+    description: 'Give yourself groovy status (recover 5 hp per turn)',
     targetType: 'friendly',
     success: [
       {
@@ -27,6 +29,7 @@ window.Actions = {
   },
   offKeyStatus: {
     name: 'tinnitus blast',
+    description: 'Give your enemy offKey status (33% chance to miss)',
     success: [
       {
         type: 'textMessage',
@@ -37,6 +40,40 @@ window.Actions = {
       {
         type: 'textMessage',
         text: "{TARGET}'s tinnitus fires up. they can't quite hear properly! (33% chance to miss)",
+      },
+    ],
+  },
+
+  //items
+  item_recoverStatus: {
+    name: 'Music Tutor',
+    description: 'Improves basic technique (remove friendly vinyl\'s status)',
+    targetType: 'friendly',
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses item: {ACTION}',
+      },
+      { type: 'stateChange', status: null },
+      {
+        type: 'textMessage',
+        text: "{CASTER}'s technique improves (status removed)",
+      },
+    ],
+  },
+  item_recoverHp: {
+    name: 'Wedding Feast',
+    description: 'Any music pro needs a free meal (recover 10 hp)',
+    targetType: 'friendly',
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses item: {ACTION}',
+      },
+      { type: 'stateChange', recover: 10 },
+      {
+        type: 'textMessage',
+        text: '{CASTER} is full of free food (10 hp recovered)',
       },
     ],
   },
