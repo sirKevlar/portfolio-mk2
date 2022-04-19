@@ -134,11 +134,5 @@ class Combatant {
     container.appendChild(this.hudElement);
     container.appendChild(this.recordElement);
     this.update();
-
-    // Object.keys(this.combatants).forEach((key) => {
-    //   let combatant = this.combatants[key];
-    //   combatant.id = key;
-    //   combatant.init(this.element);
-    // });
   }
 }

@@ -59,16 +59,24 @@ class BattleEvent {
     //Wait
     await utils.wait(600);
 
+    //update team components
+    this.battle.playerTeam.update();
+    this.battle.enemyTeam.update();
+
     //stop blinking
     target.recordElement.classList.remove('battle-damage-blink');
     resolve();
   }
 
   submissionMenu(resolve) {
+    const { caster } = this.event;
     const menu = new SubmissionMenu({
-      caster: this.event.caster,
+      caster: caster,
       enemy: this.event.enemy,
       items: this.battle.items,
+      replacements: Object.values(this.battle.combatants).filter((c) => {
+        return c.id !== caster.id && c.team === caster.team && c.hp > 0;
+      }),
       onComplete: (submission) => {
         //submission { what move to use and on whom }
         resolve(submission);
@@ -77,8 +85,42 @@ class BattleEvent {
     menu.init(this.battle.element);
   }
 
+  replacementMenu(resolve) {
+    const menu = new ReplacementMenu({
+      replacements: Object.values(this.battle.combatants).filter(c => {
+        return c.team === this.event.team && c.hp > 0
+      }),
+      onComplete: replacement => {
+        resolve(replacement)
+      }
+    })
+    menu.init( this.battle.element )
+  }
+
+  async replace(resolve) {
+    const { replacement } = this.event;
+
+    //Clear out the old combatant
+    const prevCombatant =
+      this.battle.combatants[this.battle.activeCombatants[replacement.team]];
+    this.battle.activeCombatants[replacement.team] = null;
+    prevCombatant.update();
+    await utils.wait(400);
+
+    //In with the new!
+    this.battle.activeCombatants[replacement.team] = replacement.id;
+    replacement.update();
+    await utils.wait(400);
+
+    //Update Team components
+    this.battle.playerTeam.update();
+    this.battle.enemyTeam.update();
+
+    resolve();
+  }
+
   animation(resolve) {
-    const fn = BattleAnimations[this.event.animation]; //fn not func as this.event has no property "animation"
+    const fn = BattleAnimations[this.event.animation];
     fn(this.event, resolve);
   }
 

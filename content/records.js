@@ -14,6 +14,7 @@ window.Records = {
     src: '/assets/objects/technoRecord.png',
     icon: '/assets/icons/techno.png',
     actions: ['damage1'],
+    description: 'A lesson in filtering from CJ Bolland',
   },
   h001: {
     name: "Can't stop won't stop",
@@ -22,6 +23,7 @@ window.Records = {
     src: '/assets/objects/hiphopRecord.png',
     icon: '/assets/icons/hiphop.png',
     actions: ['groovyStatus', 'offKeyStatus', 'damage1'],
+    description: 'Lyrical learnings from the master MC KRSOne',
   },
   r001: {
     name: 'Ramble on',
@@ -30,5 +32,15 @@ window.Records = {
     src: '/assets/objects/rockRecord.png',
     icon: '/assets/icons/rock.png',
     actions: ['damage1'],
+    description: 'Lord of the Rings inspired Led Zepplin',
+  },
+  b001: {
+    name: 'Smokestack lightning',
+    artist: "Howlin' Wolf",
+    type: RecordTypes.blues,
+    src: '/assets/objects/bluesRecord.png',
+    icon: '/assets/icons/blues.png',
+    actions: ['offKeyStatus', 'damage1'],
+    description: 'Classic Blues from the Howlin\' Wolf',
   },
 };
