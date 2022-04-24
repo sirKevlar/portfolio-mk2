@@ -14,6 +14,11 @@ window.Enemies = {
         maxHp: 50,
         level: 1,
       },
+      c: {
+        recordId: 'b006',
+        maxHp: 70,
+        level: 1,
+      },
     },
   },
   stan: {
