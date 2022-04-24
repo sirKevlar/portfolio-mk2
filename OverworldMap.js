@@ -177,17 +177,68 @@ window.OverworldMaps = {
         y: utils.withGrid(2),
         src: '/assets/characters/blankSquare.png',
       }),
+      mumPainting: new Painting({
+        x: utils.withGrid(3),
+        y: utils.withGrid(-1),
+        src: '/assets/paintings/mum.png',
+        imgSrc: 'Not a url yet',
+      }),
+      ncPainting: new Painting({
+        x: utils.withGrid(5),
+        y: utils.withGrid(-1),
+        src: '/assets/paintings/nc.png',
+        imgSrc: 'Not a url yet',
+      }),
       mum: new Person({
         x: utils.withGrid(7),
         y: utils.withGrid(1),
         src: '/assets/characters/mum.png',
         clickAction: [
           {
-            required: [
-              'TALKED_TO_MUM',
-              'TALKED_TO_MUM_TWICE',
-              'DEFEATED_STEVE',
+            required: ['TALKED_TO_MUM_FIVE'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'Did you manage to chat to Jim yet? Hes Kevs oldest friend and should be able to help you',
+                faceHero: 'mum',
+              },
             ],
+          },
+          {
+            required: ['DEFEATED_MUM'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'Well I hope you feel proud of yourself, picking on a septuagenarian and I hope you like that vinyl of mine. Now your collection is getting strong, I would go have a word with Jim in the games room East of here. His music taste is definitely different to mine!',
+                faceHero: 'mum',
+              },
+              { type: 'addStoryFlag', flag: 'TALKED_TO_MUM_FIVE' },
+            ],
+          },
+          {
+            required: ['TALKED_TO_MUM_FOUR'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "I hope you got that new vinyl sorted! It's time for me to teach you some more lessons young one",
+                faceHero: 'mum',
+              },
+              { type: 'battle', enemyId: 'mum' },
+            ],
+          },
+          {
+            required: ['TALKED_TO_MUM_THRICE'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'You seem to have been beaten by a retired great-grandma! Maybe you need an extra vinyl in your lineup. Go check out that vinyl press in the top left corner of this room then come back and see if you can challenge me',
+                faceHero: 'mum',
+              },
+              { type: 'addStoryFlag', flag: 'TALKED_TO_MUM_FOUR' },
+            ],
+          },
+          {
+            required: ['TALKED_TO_MUM_TWICE', 'DEFEATED_STEVE'],
             events: [
               {
                 type: 'textMessage',
@@ -195,6 +246,7 @@ window.OverworldMaps = {
                 faceHero: 'mum',
               },
               { type: 'battle', enemyId: 'mum' },
+              { type: 'addStoryFlag', flag: 'TALKED_TO_MUM_THRICE' },
             ],
           },
           {
@@ -1195,6 +1247,18 @@ window.OverworldMaps = {
             ],
           },
         ],
+      }),
+      alysPainting: new Painting({
+        x: utils.withGrid(13),
+        y: utils.withGrid(-1),
+        src: '/assets/paintings/alysPicture.png',
+        imgSrc: 'Not a url yet',
+      }),
+      islaPainting: new Painting({
+        x: utils.withGrid(15),
+        y: utils.withGrid(-1),
+        src: '/assets/paintings/islaPicture.png',
+        imgSrc: 'Not a url yet',
       }),
     },
     walls: {
