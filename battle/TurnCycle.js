@@ -1,8 +1,9 @@
 class TurnCycle {
   //DW
-  constructor({ battle, onNewEvent }) {
+  constructor({ battle, onNewEvent, onWinner }) {
     this.battle = battle;
     this.onNewEvent = onNewEvent;
+    this.onWinner = onWinner;
     this.currentTeam = 'player'; //or "enemy"
   }
 
@@ -37,6 +38,10 @@ class TurnCycle {
     }
 
     if (submission.instanceId) {
+      //add to list to persist to player state later
+      this.battle.usedInstanceIds[submission.instanceId] = true;
+
+      //remove item from battle state
       this.battle.items = this.battle.items.filter(
         (item) => item.instanceId !== submission.instanceId
       );
@@ -62,6 +67,21 @@ class TurnCycle {
         type: 'textMessage',
         text: `${submission.target.name} is scratched!`,
       });
+
+      if (submission.target.team === 'enemy') {
+        const playerActivePizzaId = this.battle.activeCombatants.player;
+        const xp = submission.target.givesXp;
+
+        await this.onNewEvent({
+          type: 'textMessage',
+          text: `Gained ${xp} XP!`,
+        });
+        await this.onNewEvent({
+          type: 'giveXp',
+          xp,
+          combatant: this.battle.combatants[playerActivePizzaId],
+        });
+      }
     }
 
     //Do we have a winning team?
@@ -69,9 +89,9 @@ class TurnCycle {
     if (winner) {
       await this.onNewEvent({
         type: 'textMessage',
-        text: 'Winner!',
+        text: 'I think we can all agree that art was the real winner!',
       });
-      //END THE BATTLE -> TODO
+      this.onWinner(winner);
       return;
     }
 
@@ -137,7 +157,7 @@ class TurnCycle {
   async init() {
     await this.onNewEvent({
       type: 'textMessage',
-      text: "silence ensues. even the rustling leaves seem to pause in suspended animation. the sun dims and the wind holds it's breath as the gladiators enter the arena...",
+      text: `silence ensues. even the rustling leaves seem to pause in suspended animation. the sun dims and the wind holds it's breath as ${this.battle.enemy.name} prepares to teach you a lesson. ${this.battle.enemy.fightMsg}`,
     });
 
     //Start the first turn!

@@ -1,9 +1,10 @@
 class KeyboardMenu {
-  constructor() {
+  constructor(config = {}) {
     this.options = []; //set by updater method
     this.up = null;
     this.down = null;
     this.prevFocus = null;
+    this.descriptionContainer = config.descriptionContainer || null;
   }
 
   setOptions(options) {
@@ -24,24 +25,24 @@ class KeyboardMenu {
       })
       .join('');
 
-        this.element.querySelectorAll('button').forEach((button) => {
-          button.addEventListener('click', () => {
-            const chosenOption = this.options[Number(button.dataset.button)];
-            chosenOption.handler();
-          });
-          button.addEventListener('mouseenter', () => {
-            button.focus();
-          });
-          button.addEventListener('focus', () => {
-            this.prevFocus = button;
-            this.descriptionElementText.innerText = button.dataset.description;
-          });
-        });
+    this.element.querySelectorAll('button').forEach((button) => {
+      button.addEventListener('click', () => {
+        const chosenOption = this.options[Number(button.dataset.button)];
+        chosenOption.handler();
+      });
+      button.addEventListener('mouseenter', () => {
+        button.focus();
+      });
+      button.addEventListener('focus', () => {
+        this.prevFocus = button;
+        this.descriptionElementText.innerText = button.dataset.description;
+      });
+    });
 
-        setTimeout(() => {
-          //focus on first active button
-          this.element.querySelector('button[data-button]:not([disabled])').focus();
-        }, 10);
+    setTimeout(() => {
+      //focus on first active button
+      this.element.querySelector('button[data-button]:not([disabled])').focus();
+    }, 10);
   }
 
   createElement() {
@@ -55,19 +56,19 @@ class KeyboardMenu {
     this.descriptionElementText = this.descriptionElement.querySelector('p');
   }
 
-    end() {
-      //Remove menu element and description element
-      this.element.remove();
-      this.descriptionElement.remove();
+  end() {
+    //Remove menu element and description element
+    this.element.remove();
+    this.descriptionElement.remove();
 
-      //Clean up bindings
-      this.up.unbind();
-      this.down.unbind();
-    }
+    //Clean up bindings
+    this.up.unbind();
+    this.down.unbind();
+  }
 
   init(container) {
     this.createElement();
-    container.appendChild(this.descriptionElement);
+    (this.descriptionContainer || container).appendChild(this.descriptionElement);
     container.appendChild(this.element);
 
     this.up = new KeyPressListener('ArrowUp', () => {
