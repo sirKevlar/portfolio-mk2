@@ -31,7 +31,7 @@
 } 
 
 .Battle_enemy img {
-    transform: translateY(-400px); /*nudge sprite sheet*/
+    transform: translateY(-116px); /*nudge sprite sheet*/
 } 
 
 .Battle_enemy {
@@ -86,8 +86,8 @@
 @keyframes battle-tinnitus-left {
   0% { transform: translate3d(0,0,0) scale(0.5); opacity: 1}
   50% { transform: translate3d(-10px,-80px,0) scale(1); opacity: 1; }
-  80% {  transform: translate3d(-200px, -78px, 0) scale(1);opacity:1 }
-  100% {  transform: translate3d(-200px, -78px, 0) scale(3);opacity:0 }
+  80% {  transform: translate3d(-200px, -58px, 0) scale(1);opacity:1 }
+  100% {  transform: translate3d(-200px, -58px, 0) scale(3);opacity:0 }
 }
 .battle-tinnitus-left {
   right: 130px;

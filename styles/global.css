@@ -26,6 +26,9 @@ body {
     margin: 0 auto;
     outline: 1px solid white;
     transform: scale(2) translateY(50%);
+    background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/03/f8/31/d8/millenium-walkway.jpg');
+    background-color: #333;
+    background-blend-mode: multiply;
 }
 
 .game-container canvas {
