@@ -65,6 +65,14 @@ class OverworldEvent {
     message.init(document.querySelector('.game-container'));
   }
 
+  displayImage(resolve) {
+    const image = new DisplayImage({
+      src: this.event.src,
+      onComplete: () => resolve(),
+    });
+    image.init(document.querySelector('.game-container'));
+  }
+
   changeMap(resolve) {
     const sceneTransition = new SceneTransition();
     sceneTransition.init(document.querySelector('.game-container'), () => {

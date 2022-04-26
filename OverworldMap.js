@@ -181,13 +181,13 @@ window.OverworldMaps = {
         x: utils.withGrid(3),
         y: utils.withGrid(-1),
         src: '/assets/paintings/mum.png',
-        imgSrc: 'Not a url yet',
+        imgSrc: 'https://picsum.photos/200/300',
       }),
       ncPainting: new Painting({
         x: utils.withGrid(5),
         y: utils.withGrid(-1),
         src: '/assets/paintings/nc.png',
-        imgSrc: 'Not a url yet',
+        imgSrc: 'https://picsum.photos/300/200',
       }),
       mum: new Person({
         x: utils.withGrid(7),
@@ -675,6 +675,12 @@ window.OverworldMaps = {
           },
         ],
       }),
+      jimPainting: new Painting({
+        x: utils.withGrid(4),
+        y: utils.withGrid(-1),
+        src: '/assets/paintings/jimPicture.png',
+        imgSrc: 'https://picsum.photos/300/200',
+      }),
     },
     walls: {
       [utils.asGridCoord(0, -1)]: true, //left wall top start
@@ -982,6 +988,18 @@ window.OverworldMaps = {
           },
         ],
       }),
+      robPainting: new Painting({
+        x: utils.withGrid(10),
+        y: utils.withGrid(-1),
+        src: '/assets/paintings/robPicture.png',
+        imgSrc: 'https://picsum.photos/300/200',
+      }),
+      kevPainting: new Painting({
+        x: utils.withGrid(12),
+        y: utils.withGrid(-1),
+        src: '/assets/paintings/kevPicture.png',
+        imgSrc: 'https://picsum.photos/300/200',
+      }),
     },
     walls: {
       [utils.asGridCoord(0, -1)]: true, //left wall top start
@@ -1252,13 +1270,13 @@ window.OverworldMaps = {
         x: utils.withGrid(13),
         y: utils.withGrid(-1),
         src: '/assets/paintings/alysPicture.png',
-        imgSrc: 'Not a url yet',
+        imgSrc: 'https://picsum.photos/300/250',
       }),
       islaPainting: new Painting({
         x: utils.withGrid(15),
         y: utils.withGrid(-1),
         src: '/assets/paintings/islaPicture.png',
-        imgSrc: 'Not a url yet',
+        imgSrc: 'https://picsum.photos/300/250',
       }),
     },
     walls: {

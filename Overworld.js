@@ -128,7 +128,7 @@ class Overworld {
     // this.map.startCutscene([
     //   {
     //     type: 'textMessage',
-    //     text: 'You open your eyes. Your vision is blurred and your surroundings are unfamiliar. You thought you were visiting the portfolio site of Kev Morel, but instead you seem to be trapped in some sort of 8-bit nightmare!',
+    //     text: 'You open your eyes. Your vision is blurred and your surroundings are unfamiliar. You thought you were visiting the portfolio site of Kev Morel, but instead you seem to be trapped in some sort of digital nightmare!',
     //   },
     //   { who: 'hero', type: 'walk', direction: 'down' },
     //   { who: 'hero', type: 'walk', direction: 'down' },

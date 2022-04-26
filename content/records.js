@@ -119,6 +119,16 @@ window.Records = {
     description:
       "So many great versions of this song. Kev's fave 2: Otis Reading and The Commitments",
   },
+  b006: {
+    name: 'Higher and higher',
+    artist: 'Jackie Wilson',
+    type: RecordTypes.blues,
+    src: '/assets/objects/bluesRecord.png',
+    icon: '/assets/icons/blues.png',
+    actions: ['offKeyStatus', 'damage1'],
+    description:
+      "Awesome uplifting tune from Jackie Wilson",
+  },
   c001: {
     name: 'Brandenburg concerto no.3',
     artist: 'Johann Sebastian Bach',

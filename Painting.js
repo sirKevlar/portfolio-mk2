@@ -4,7 +4,6 @@ class Painting extends GameObject {
     this.sprite = new Sprite({
       gameObject: this,
       src: config.src,
-      imgSrc: config.imgSrc,
       animations: {
         still: [[0, 0]],
       },
@@ -14,8 +13,9 @@ class Painting extends GameObject {
       {
         events: [
           {
-            type: 'textMessage',
-            text: `when you click me, i will display ${config.imgSrc}`,
+            type: 'displayImage',
+            src: config.imgSrc,
+            description: config.description,
           },
         ],
       },
