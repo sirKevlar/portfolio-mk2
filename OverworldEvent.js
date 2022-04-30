@@ -68,6 +68,7 @@ class OverworldEvent {
   displayImage(resolve) {
     const image = new DisplayImage({
       src: this.event.src,
+      description: this.event.description,
       onComplete: () => resolve(),
     });
     image.init(document.querySelector('.game-container'));

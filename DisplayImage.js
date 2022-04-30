@@ -12,7 +12,8 @@ class DisplayImage {
 
     this.element.innerHTML = `
         <div class="DisplayImage_div">
-        <img src="${this.src}" alt="${this.description}">
+        <img class="DisplayImage_img" src="${this.src}" alt="${this.description}">
+        <p class="DisplayImage_p" >${this.description}</p>
         </div>
         <button class="DisplayImage_button">Next</button>
       `;

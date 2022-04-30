@@ -11,6 +11,31 @@ window.Actions = {
       { type: 'stateChange', damage: 10 },
     ],
   },
+  damage2: {
+    name: 'fender shred "fireball"',
+    description: 'Shred so hard we on fire (enemy loses 8 hp + 1 hp per turn)',
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses {ACTION}',
+      },
+      { type: 'animation', animation: 'tinnitus', color: 'red' },
+      { type: 'stateChange', damage: 8 },
+      { type: 'stateChange', status: { type: 'burnin', expiresIn: 100 } },
+    ],
+  },
+  damage3: {
+    name: 'blown amp "power leech"',
+    description: 'It was turned up to 11 (steal 3 hp from enemy per turn)',
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses {ACTION}',
+      },
+      { type: 'animation', animation: 'spin' },
+      { type: 'stateChange', status: { type: 'leech', expiresIn: 100 } },
+    ],
+  },
   groovyStatus: {
     name: 'In the groove',
     description: 'Give yourself groovy status (recover 5 hp per turn)',
@@ -43,11 +68,27 @@ window.Actions = {
       },
     ],
   },
+  burninStatus: {
+    name: "burnin'",
+    description: "Give your enemy burnin' status (lose 2 hp per turn)",
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses {ACTION}',
+      },
+      { type: 'animation', animation: 'tinnitus', color: 'red' },
+      { type: 'stateChange', status: { type: 'burnin', expiresIn: 100 } },
+      {
+        type: 'textMessage',
+        text: '{CASTER} shreds so hard that {TARGET} is on fire (lose 2 hp per turn)',
+      },
+    ],
+  },
 
   //items
   item_recoverStatus: {
     name: 'Music Tutor',
-    description: 'Improves basic technique (remove friendly vinyl\'s status)',
+    description: "Improves basic technique (remove friendly vinyl's status)",
     targetType: 'friendly',
     success: [
       {

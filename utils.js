@@ -49,4 +49,14 @@ const utils = {
     });
     document.dispatchEvent(event);
   },
+  createEventsList(config) {
+    const formattedArray = config.imgSrc.map((image) => {
+      return {
+        type: 'displayImage',
+        src: image,
+        description: config.description,
+      };
+    });
+    return formattedArray;
+  },
 };

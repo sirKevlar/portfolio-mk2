@@ -8,10 +8,25 @@
     top: 0;
     bottom: 0;
     background: rgba(0,0,0,0.8);
+    color: aliceblue;
 }
 
 .DisplayImage_button {
     position: absolute;
     right: 10px;
     bottom: 10px;
+}
+
+.DisplayImage_img {
+    transform: scale(0.5);
+}
+
+.DisplayImage_p {
+    position: absolute;
+    left: 10px;
+    margin: 0;
+    bottom: 14px;
+    font-size: 10px;
+    background-color: #5405a4;
+    padding: 1px;
 }

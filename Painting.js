@@ -11,13 +11,7 @@ class Painting extends GameObject {
     });
     this.clickAction = [
       {
-        events: [
-          {
-            type: 'displayImage',
-            src: config.imgSrc,
-            description: config.description,
-          },
-        ],
+        events: utils.createEventsList(config),
       },
     ];
   }

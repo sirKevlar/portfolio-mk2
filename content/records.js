@@ -126,8 +126,7 @@ window.Records = {
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
     actions: ['offKeyStatus', 'damage1'],
-    description:
-      "Awesome uplifting tune from Jackie Wilson",
+    description: 'Awesome uplifting tune from Jackie Wilson',
   },
   c001: {
     name: 'Brandenburg concerto no.3',
@@ -264,7 +263,7 @@ window.Records = {
     type: RecordTypes.normal,
     src: '/assets/objects/normalRecord.png',
     icon: '/assets/characters/blankSquare.png',
-    actions: ['damage1'],
+    actions: ['damage1', 'damage2', 'damage3'],
     description:
       "Classic one hit wonder from the early 80's and Kev's first vinyl",
   },

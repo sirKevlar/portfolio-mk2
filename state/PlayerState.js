@@ -3,7 +3,7 @@ class PlayerState {
     this.records = {
       r1: {
         recordId: 'n003',
-        hp: 10,
+        hp: 30,
         maxHp: 30,
         xp: 0,
         maxXp: 100,
@@ -12,7 +12,7 @@ class PlayerState {
       },
       r2: {
         recordId: 'n004',
-        hp: 10,
+        hp: 30,
         maxHp: 30,
         xp: 0,
         maxXp: 100,

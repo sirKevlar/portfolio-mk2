@@ -105,6 +105,37 @@ class Combatant {
     return originalEvents;
   }
 
+  getPreEvents() {
+    const activeEnemy = this.battle.activeCombatants.enemy;
+
+    if (
+      this.battle.combatants[activeEnemy].status?.type === 'burnin' &&
+      activeEnemy !== this.id
+    ) {
+      return [
+        {
+          type: 'textMessage',
+          text: "enemy burnin': still reeling from your shreds",
+        },
+        { type: 'stateChange', damage: 1 },
+      ];
+    }
+    if (
+      this.battle.combatants[activeEnemy].status?.type === 'leech' &&
+      activeEnemy !== this.id
+    ) {
+      return [
+        {
+          type: 'textMessage',
+          text: "enemy leeched: that blown tube is draining all your power man!",
+        },
+        { type: 'stateChange', damage: 3 },
+        { type: 'stateChange', recover: 3, onCaster: true },
+      ];
+    }
+    return [];
+  }
+
   getPostEvents() {
     if (this.status?.type === 'groovy') {
       return [

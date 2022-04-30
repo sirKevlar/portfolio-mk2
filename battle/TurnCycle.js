@@ -59,6 +59,18 @@ class TurnCycle {
       };
       await this.onNewEvent(event);
     }
+    //check for pre events (events before turn submission)
+    const preEvents = caster.getPreEvents();
+    for (let i = 0; i < preEvents.length; i++) {
+      const event = {
+        ...preEvents[i],
+        submission,
+        action: submission.action,
+        caster,
+        target: submission.target,
+      };
+      await this.onNewEvent(event);
+    }
 
     //Did the target die?
     const targetDead = submission.target.hp <= 0;
