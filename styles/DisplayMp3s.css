@@ -1,0 +1,42 @@
+.DisplayMp3s {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    color: aliceblue;
+}
+
+.DisplayMp3s_div {
+    position: absolute;
+    left: 440px;
+    width: 120%;
+    top: -184px;
+    display:flex;
+    flex-direction: column;
+    transform: scale(0.7);
+}
+
+.DisplayMp3s_mp3 {
+    display: flex;
+    margin: 3px;
+}
+
+.DisplayMp3s_p {
+    font-size: 18px;
+    background-color: #5405a4;
+    padding: 1px;
+    margin-left: 20px;
+}
+
+.DisplayMp3s_button {
+    position: absolute;
+    right: -452px;
+    bottom: -54px;
+    transform: scale(1.5);
+}
+
+.DisplayMp3s_cover {
+    transform: scale(0.5) translateY(-32%) translateX(-44%);
+}
