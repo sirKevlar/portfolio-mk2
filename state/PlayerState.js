@@ -35,7 +35,7 @@ class PlayerState {
       { actionId: 'item_recoverHp', instanceId: 'item2' },
       { actionId: 'item_recoverHp', instanceId: 'item3' },
     ];
-    this.storyFlags = {};
+    this.storyFlags = { TALKED_TO_JIM: true, DEFEATED_MUM: true };
   }
 
   addRecord(recordId) {

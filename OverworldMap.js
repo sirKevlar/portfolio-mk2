@@ -119,6 +119,58 @@ window.OverworldMaps = {
         x: utils.withGrid(10),
         y: utils.withGrid(2),
       }),
+      bookcaseLeft: new GameObject({
+        x: utils.withGrid(14),
+        y: utils.withGrid(-1),
+        src: '/assets/characters/blankSquare.png',
+        clickAction: [
+          {
+            events: [
+              {
+                type: 'displayImageAndText',
+                src: '/assets/pictures/NCpromo.png',
+                description: 'Northcoders promotional image',
+                text: "Career 2021 to Present </br></br> Northcoders - Software engineer and seminar lead </br></br> Having made the decision to retrain as a software developer during the Covid pandemic, Kev sought out the best full stack boot camp to springboard his career </br></br> Upon the recommendation of many he discovered Northcoders and hasn't looked back since! </br></br> After completing the Northcoders course, Kev landed his dream job working for them in September 2021 as a Junior software engineer and mentor </br></br> In June 2022 the whirlwind journey continued when Kev was promoted to Software engineer and seminar lead </br></br> <a target='_blank' class='magenta' href='https://northcoders.com'>Northcoders website</a>",
+              },
+              {
+                type: 'displayImageAndText',
+                src: '/assets/pictures/dynamic.png',
+                description: 'Dynamic music tutors logo',
+                text: "Career 2016 to 2020 </br></br> Dynamic music tutors - Owner/peripatetic music teacher </br></br> Responsible for the entire music curriculum for two primary schools, Kev taught from reception all the way up to year 6. Lessons included: Traditional classroom, large percussion groups, small SEND groups and small specialist instrumental groups </br></br> He was responsible for organizing annual events including the schools' summer concerts </br></br> Kev also taught peripatetic music tuition in high school and helped many young aspiring musicians achieve music grades </br></br> <a target='_blank' class='magenta' href='https://www.facebook.com/dynamicmusictutors'>Dynamic Music Tutors - Facebook</a>",
+              },
+              {
+                type: 'displayImageAndText',
+                src: '/assets/pictures/DFR.png',
+                description: 'Dynamic music tutors logo',
+                text: "Career 2012 to 2020 </br></br> Dogface Records - Joint founder </br></br> Officially launched in 2014, Dogface Records was a passion project from a 5 strong team of musicians/producers including Kev </br></br> In-house producer for the team, he produced several albums and eps for up and coming acts around Manchester </br></br> Kev and the Dogface team organized many successful European tours for their acts, building up a network in Europe from scratch </br></br> In the later years he worked a residency with DFR partner Robert John in the Northern Quarter of Manchester for 3 years and performed many times for MIHC in hospitals and care homes </br></br> <a target='_blank' class='magenta' href='https://www.dogfacerecords.co.uk'>Dogface Records Website</a>",
+              },
+              {
+                type: 'displayImageAndText',
+                src: '/assets/pictures/kevAndIsla.png',
+                description: 'Kev and Isla on a cold and windy day',
+                text: "</br></br></br></br></br></br> Contact: </br></br></br></br><a target='_blank' class='magenta' href='https://www.linkedin.com/in/kev-morel'>Contact Kev Via Linkdin</a></br></br></br></br><a target='_blank' class='magenta' href='https://github.com/sirKevlar'>Check out Kev's Github</a> </br></br></br></br> Or email kpmorel@gmail.com",
+              },
+            ],
+          },
+        ],
+      }),
+      bookcaseRight: new GameObject({
+        x: utils.withGrid(18),
+        y: utils.withGrid(-1),
+        src: '/assets/characters/blankSquare.png',
+        clickAction: [
+          {
+            events: [
+              {
+                type: 'displayImageAndText',
+                src: '/assets/pictures/earlyCareer.png',
+                description: 'company logos',
+                text: 'Early career: </br></br></br> 2012 to 2016 One education - Peripatetic music tutor </br></br></br> 2009 to 2012 Couture Cafe - Cafe Supervisor/Chef </br></br></br> 2005 to 2009 James Barber Decorators - Painter and decorator </br></br></br> 2002 to 2005 Window Options - Head of roofing fabrication </br></br></br> 2001 to 2002 Printers Direct - Sales broker </br></br></br> 1999 to 2001 Genesis V Systems - Administrator',
+              },
+            ],
+          },
+        ],
+      }),
       coffeeTableNote: new GameObject({
         x: utils.withGrid(16),
         y: utils.withGrid(8),
@@ -128,11 +180,15 @@ window.OverworldMaps = {
             events: [
               {
                 type: 'textMessage',
-                text: 'Well done for making it this far! You\'re an actual genius. Have a wander and hit "ENTER" when looking at stuff and you might see some of Kev\'s various projects or hit "ENTER" when looking at someone to chat... Everyone has something to say!',
+                text: 'Well done for making it this far! You\'re an actual genius. Have a wander and hit "ENTER" when looking at paintings, computers, bookshelves, items on tables and other stuff and you might see some of Kev\'s various projects',
               },
               {
                 type: 'textMessage',
-                text: 'This house has 4 rooms: The office (this room) - Features React projects and APIs and other office-y things',
+                text: 'Or hit "ENTER" when looking at someone to chat... Everyone has something to say!',
+              },
+              {
+                type: 'textMessage',
+                text: "This house has 4 rooms: The office (this room) - Features React projects  and other office-y things... For example: if you click on the bookshelves in this room you can check out Kev's work history and get contact details",
               },
               {
                 type: 'textMessage',
@@ -152,7 +208,7 @@ window.OverworldMaps = {
               },
               {
                 type: 'textMessage',
-                text: 'Massive thanks to Drew Conley (check out his YouTube channel) for your help and for creating the video series which is the foundation of this site and also to the Game Dev Shift Discord group for all your help too',
+                text: "Massive thanks to Drew Conley (check out his YouTube channel) for your help and for creating the video series which the foundations of this site's game engine and also to the Game Dev Shift Discord group for all your help too",
               },
               {
                 type: 'textMessage',
@@ -166,16 +222,48 @@ window.OverworldMaps = {
         x: utils.withGrid(16),
         y: utils.withGrid(0),
         src: '/assets/characters/blankSquare.png',
+        clickAction: [
+          {
+            events: [
+              {
+                type: 'displayImageAndText',
+                src: '/assets/pictures/kevHair.png',
+                description: 'Great hair pic',
+                text: "</br></br></br></br></br></br></br></br></br></br></br></br><a target='_blank' class='magenta' href='https://www.kevmorelportfolio.com/'>Boring static website...</a>",
+              },
+            ],
+          },
+        ],
       }),
-      conferenceTableLaptopRight: new GameObject({
+      conferenceTableLaptopRight: new VideoDisplay({
         x: utils.withGrid(4),
         y: utils.withGrid(2),
         src: '/assets/characters/blankSquare.png',
+        videos: [
+          'https://www.youtube.com/embed/AW9Ncs6C_Es',
+          'https://www.youtube.com/embed/1lGdSrrptkI',
+          'https://www.youtube.com/embed/hmOmKOoF9PU',
+        ],
+        descriptions: [
+          'Lightning talk - web audio api',
+          'Northcoders graduation project',
+          'Lightning talk - inspirational women in tech',
+        ],
       }),
-      conferenceTableLaptopLeft: new GameObject({
+      conferenceTableLaptopLeft: new VideoDisplay({
         x: utils.withGrid(3),
         y: utils.withGrid(2),
         src: '/assets/characters/blankSquare.png',
+        videos: [
+          'https://www.youtube.com/embed/AW9Ncs6C_Es',
+          'https://www.youtube.com/embed/1lGdSrrptkI',
+          'https://www.youtube.com/embed/hmOmKOoF9PU',
+        ],
+        descriptions: [
+          'Lightning talk - web audio api',
+          'Northcoders graduation project',
+          'Lightning talk - inspirational women in tech',
+        ],
       }),
       mumPainting: new Painting({
         x: utils.withGrid(3),
@@ -184,12 +272,13 @@ window.OverworldMaps = {
         src: '/assets/paintings/mum.png',
         imgSrc: ['/assets/pictures/mum.jpeg'],
       }),
-      ncPainting: new Painting({
+      ncPainting: new EmbedDisplay({
         x: utils.withGrid(5),
         y: utils.withGrid(-1),
-        description: "Pictures of Kev's colleagues at Northcoders",
+        description:
+          'Northcoders project using React, Express, PostgreSQL - Login: jessjelly',
         src: '/assets/paintings/nc.png',
-        imgSrc: ['https://picsum.photos/300/200'],
+        embedSrc: 'https://kev-morel-react-game-reviews.netlify.app',
       }),
       mum: new Person({
         x: utils.withGrid(7),
@@ -375,6 +464,20 @@ window.OverworldMaps = {
         y: utils.withGrid(0),
         storyFlag: 'USED_RECORD_PRESS',
         records: ['t001', 'r001'],
+      }),
+      calculator: new EmbedDisplay({
+        x: utils.withGrid(3),
+        y: utils.withGrid(7),
+        description: 'calculator (mini react app)',
+        src: '/assets/objects/calculator.png',
+        embedSrc: 'https://kev-morel-react-calculator.netlify.app',
+      }),
+      colorSample: new EmbedDisplay({
+        x: utils.withGrid(4),
+        y: utils.withGrid(7),
+        description: 'color schemes (mini react app)',
+        src: '/assets/objects/colors.png',
+        embedSrc: 'https://kev-morel-color-schemes.netlify.app',
       }),
     },
     walls: {
@@ -691,6 +794,7 @@ window.OverworldMaps = {
                 faceHero: 'jim',
               },
               { type: 'addStoryFlag', flag: 'TALKED_TO_JIM_TWICE' },
+              { type: 'repairVinyl' },
             ],
           },
           {
@@ -715,6 +819,83 @@ window.OverworldMaps = {
           '/assets/pictures/jim.jpeg',
           '/assets/pictures/jim2.jpeg',
           '/assets/pictures/jim3.jpeg',
+        ],
+      }),
+      arcadeOneLeft: new EmbedDisplay({
+        x: utils.withGrid(1),
+        y: utils.withGrid(0),
+        description: 'memory matcher game built with vanilla html css js',
+        src: '/assets/characters/blankSquare.png',
+        embedSrc:
+          'https://agitated-yonath-d2d0d6.netlify.app/memory-matching-game/memory-matcher.html',
+      }),
+      arcadeOneRight: new EmbedDisplay({
+        x: utils.withGrid(2),
+        y: utils.withGrid(0),
+        description: 'memory matcher game built with vanilla html css js',
+        src: '/assets/characters/blankSquare.png',
+        embedSrc:
+          'https://agitated-yonath-d2d0d6.netlify.app/memory-matching-game/memory-matcher.html',
+      }),
+      arcadeTwoLeft: new EmbedDisplay({
+        x: utils.withGrid(18),
+        y: utils.withGrid(0),
+        description:
+          'solitaire game built using react and firebase (in development)', //v1s1tor0n3
+        src: '/assets/characters/blankSquare.png',
+        embedSrc: 'https://kev-morel-react-solitaire.netlify.app',
+      }),
+      arcadeTwoRight: new EmbedDisplay({
+        x: utils.withGrid(19),
+        y: utils.withGrid(0),
+        description:
+          'solitaire game built using react and firebase (in development)',
+        src: '/assets/characters/blankSquare.png',
+        embedSrc: 'https://kev-morel-react-solitaire.netlify.app',
+      }),
+      boomBox: new BoomBox({
+        x: utils.withGrid(18),
+        y: utils.withGrid(7),
+        description: 'boom box',
+        src: '/assets/objects/boomBox.png',
+        mp3s: [
+          '/assets/mp3s/breathe.mp3',
+          '/assets/mp3s/runRabbit.mp3',
+          '/assets/mp3s/myFriend.mp3',
+          '/assets/mp3s/itGoes.mp3',
+          '/assets/mp3s/luck.mp3',
+          '/assets/mp3s/choose.mp3',
+          '/assets/mp3s/theLiar.mp3',
+          '/assets/mp3s/thisToo.mp3',
+          '/assets/mp3s/cityLimitSister(live).mp3',
+        ],
+        descriptions: [
+          'Breathe',
+          'Run rabbit',
+          'My friend',
+          'It goes',
+          'Luck',
+          'Choose',
+          'The liar',
+          'This too',
+          'City limit sister (live)',
+        ],
+        cover: '/assets/theLiarImages/cover.jpg',
+        coverDescription: 'Cover for The Liar album',
+        srcs: [
+          '/assets/theLiarImages/backCover.jpg',
+          '/assets/theLiarImages/insideLeft.jpg',
+          '/assets/theLiarImages/insideRight.jpg',
+        ],
+        imageDescriptions: [
+          'Back cover for The liar album',
+          'Inside-left cover for The liar album',
+          'Inside-right cover for The liar album',
+        ],
+        texts: [
+          `</br></br></br>The Liar was the first full studio album Kev produced </br></br></br></br> Contributors include... </br></br> Musicians: </br> Robert John (guitar, vocals) </br> Kev Morel (producer, percussion, backing vocals)</br> Phill Howley (drums, percussion)</br> Clement Neveu (bass)</br> Chris Ball (piano, keyboards)</br> Dan Bridgewood-Hill (violin)</br> T.E.Yates (mandolin)</br></br> Artwork: </br> Zimmy Iredale`,
+          `</br></br></br></br></br></br> This album was also the first to be recorded at 'the Kennel' the headquarters for Dogface Records and was the inspiration for the foundation of the label </br></br> The DIY nature of the project became a theme for Dogface Records projects, with the label often handling all aspects of releasing records 'in-house'`,
+          `</br></br></br></br></br></br> The Liar European tour was the first Rob and Kev organized and was the catalyst for most of their success in Germany </br></br> The team that worked on 'The liar' became the backbone of almost all Dogface Records projects, helping to promote the work of many of Manchester's unsung music heroes`,
         ],
       }),
     },
@@ -1114,7 +1295,6 @@ window.OverworldMaps = {
         imgSrc: [
           '/assets/pictures/kev.jpeg',
           '/assets/pictures/kev2.jpeg',
-          '/assets/pictures/kev3.jpeg',
           '/assets/pictures/kev4.jpeg',
           '/assets/pictures/kev5.jpeg',
           '/assets/pictures/kev6.jpeg',
@@ -1153,6 +1333,75 @@ window.OverworldMaps = {
           '/assets/pictures/jannocks5.jpeg',
           '/assets/pictures/lomax.jpeg',
           '/assets/pictures/wedding.jpeg',
+        ],
+      }),
+      boomBox: new BoomBox({
+        x: utils.withGrid(2),
+        y: utils.withGrid(7),
+        description: 'boom box',
+        src: '/assets/objects/boomBox.png',
+        mp3s: [
+          '/assets/mp3s/deepRiverBlues.mp3',
+          '/assets/mp3s/fuzzy.mp3',
+          '/assets/mp3s/statistics.mp3',
+          '/assets/mp3s/lucky7.mp3',
+          '/assets/mp3s/family.mp3',
+          '/assets/mp3s/jake.mp3',
+          '/assets/mp3s/valkyrie.mp3',
+          '/assets/mp3s/personalityVampire.mp3',
+          '/assets/mp3s/overcookedOnOneSide.mp3',
+          '/assets/mp3s/interlude.mp3',
+          '/assets/mp3s/seed.mp3',
+          '/assets/mp3s/transparent.mp3',
+          '/assets/mp3s/dirtyOldLife.mp3',
+        ],
+        descriptions: [
+          'Deep river blues',
+          'Fuzzy',
+          'Statistics',
+          'Lucky 7',
+          'Family',
+          'Jake',
+          'Valkyrie',
+          'Personality vampire',
+          'Overcooked on one side',
+          'Interlude',
+          'Seed',
+          'Transparent',
+          'Dirty old life',
+        ],
+        cover: '/assets/fpgImages/cover.jpg',
+        coverDescription: 'Cover for Flat Pack Gallows album',
+        srcs: [
+          '/assets/fpgImages/coverBack.jpg',
+          '/assets/fpgImages/coverInsideLeft.jpg',
+          '/assets/fpgImages/coverInsideRight.jpeg',
+        ],
+        imageDescriptions: [
+          'Back cover for Flat Pack Gallows album',
+          'Inside-left cover for Flat Pack Gallows album',
+          'Inside-right cover for Flat Pack Gallows album',
+        ],
+        texts: [
+          `"Flat Pack Gallows was assembled with the help of friends and family" </br></br> Contributors include... </br></br> Musicians: </br> Ben Hayward (bass, classical guitar) </br> Biff Roxby (guitar, cello, horns)</br> Chris Ball (organ)</br> Clement Neveu (bass)</br> Ellis Davies (lead guitar)</br> Fran Lydiatt (keys/synths)</br> Jess Shenton (vocals)</br> Kev Morel (beats, guitar, synths, vox)</br> Matthew Cleghorn (lapsteel, mandolin)</br> Mickey Van Gelder (lead guitar)</br> Pat Clarke (harmonica)</br> Peer Che Faire (xylophone)</br> Phill Howley (brushes, percussion)</br> Robert John (bass, lead guitar)</br></br> Artwork: </br> Dan Morris </br> Zimmy Iredale`,
+          `The album was fully funded thanks to a successful kickstarter campaign, several incredibly generous fans and Kev's awesome family.</br> This paid for CDs, t-shirts, mugs, posters, fliers and a European tour</br></br> Special thanks to: </br></br>Angie Fitzgerald</br>Biker FM</br>Gaz Seddon</br>Gerry Howley</br>James Barber</br>Jens Lengauer</br>Jo Bell</br>NABD</br>Pamela Morel</br>Peer Van See</br>Phil Morel</br>Rick Hulse</br>Vicky Morel</br></br>For all their support 💖`,
+          `</br></br>The Flat Pack Gallows European Tour 2014 was the final and biggest of four European tours Kev organised with his long term musical partner Robert John:</br></br></br></br></br>01/10: THE VAULTS, Cirencester</br>02/10: DRUID'S CELLAR, Brugges</br>03/10: KREFELD UNPLUGGED, Krefeld</br>04/10: BLAUES HAUS, Mönchengladbach</br>05/10: FATSCH, Kalk</br>08/10: AKZENT, Landau</br>09/10: PALAIS RISCHER, Heidelberg</br>10/10: SCRUFFY'S, Kalsruhe</br>11/10: CLEARING BARREL, Kaiserslautern</br>14/10: SOFA CONCERTS, Stuttgart</br>16/10: HERTZSCHLAG, Brandenburg</br>17/10: HAVEL RESTAURANT, Brandenburg`,
+        ],
+      }),
+      tv: new VideoDisplay({
+        x: utils.withGrid(17),
+        y: utils.withGrid(7),
+        description: 'tv',
+        src: '/assets/objects/tvFace.png',
+        videos: [
+          'https://www.youtube.com/embed/XnRGbfs0_AQ',
+          'https://www.youtube.com/embed/WtzMsuPQhcA',
+          'https://www.youtube.com/embed/HZ0tkKDUo7g',
+        ],
+        descriptions: [
+          'Rob and Kev - Kiss',
+          'Robert John - Augustendiele',
+          'Rob and Kev - Bang bang',
         ],
       }),
     },
@@ -1460,6 +1709,80 @@ window.OverworldMaps = {
           '/assets/pictures/ai5.jpg',
           '/assets/pictures/ai6.jpg',
           '/assets/pictures/ai7.jpg',
+        ],
+      }),
+      tvL: new VideoDisplay({
+        x: utils.withGrid(14),
+        y: utils.withGrid(6),
+        description: 'tvL',
+        src: '/assets/characters/blankSquare.png',
+        videos: [
+          'https://www.youtube.com/embed/8enfGajCtU8',
+          'https://www.youtube.com/embed/eNH0X7ujMmw',
+          'https://player.vimeo.com/video/116650799?h=09c61505b1',
+        ],
+        descriptions: [
+          'Kev Morel - Basement session',
+          'Kev Morel - Augustendiele',
+          'Kev Morel - Nachtigal',
+        ],
+      }),
+      tvR: new VideoDisplay({
+        x: utils.withGrid(15),
+        y: utils.withGrid(6),
+        description: 'tvR',
+        src: '/assets/characters/blankSquare.png',
+        videos: [
+          'https://www.youtube.com/embed/8enfGajCtU8',
+          'https://www.youtube.com/embed/eNH0X7ujMmw',
+          'https://player.vimeo.com/video/116650799?h=09c61505b1',
+        ],
+        descriptions: [
+          'Kev Morel - Basement session',
+          'Kev Morel - Augustendiele',
+          'Kev Morel - Nachtigal',
+        ],
+      }),
+      coffeeTableNote: new GameObject({
+        x: utils.withGrid(7),
+        y: utils.withGrid(0),
+        src: '/assets/characters/blankSquare.png',
+        clickAction: [
+          {
+            events: [
+              {
+                type: 'textMessage',
+                text: "What's next... SCRUM master certification, AWS cloud services certification, learn Go, learn TypeScript, build game editor, build zoo game",
+              },
+              {
+                type: 'textMessage',
+                text: 'You seem to have stumbled on Kev\'s ever-growing todo list... "That\'s dev life: Too much list, not enough me" - Andrea Catania',
+              },
+            ],
+          },
+        ],
+      }),
+      bookcaseRight: new GameObject({
+        x: utils.withGrid(8),
+        y: utils.withGrid(0),
+        src: '/assets/characters/blankSquare.png',
+        clickAction: [
+          {
+            events: [
+              {
+                type: 'displayImageAndText',
+                src: '/assets/pictures/youngKev.png',
+                description: 'Kev aged 3',
+                text: "The early years: </br></br> A long time ago, in a galaxy far far away (Ashington, near Newcastle-upon-Tyne) Kev Morel was born </br></br> He moved from Newcastle to Flash, near Buxton, Derbyshire and then the family settled in Poynton, Cheshire for 'The Highschool Years' and beyond </br></br> Kev then bought and renovated a house in Glossop, Derbyshire </br></br> After selling his house, Kev moved to Manchester city centre as his music career developed </br></br> In 2018 not long after his youngest daughter Alys was born, Kev moved with his family to New Mills, Derbyshire to enjoy the beautiful countryside of the Peak District",
+              },
+              {
+                type: 'displayImageAndText',
+                src: '/assets/pictures/fourNobodies.png',
+                description: 'Kev in his first band "Four Nobodies"',
+                text: "</br> Fun facts: </br></br> Kev first performed on stage in 1980 and has given somewhere in the region of 1000 public performances </br></br> Kev taught several instruments as a music tutor. The instruments he has played in front of an audience are: Drum kit, Cajon, Djembe, Bongos, Congas, Percussion, Guitar, Bass Guitar, Ukulele, Violin, Piano, Keyboard, Vocals and Backing Vocals </br></br> Kev's daughters Isla and Alys were both born in Olympic years (2012 and 2016) </br></br> Kev's first band 'Four Nobodies' (pictured left) was formed in 1992 and were finalists in the 'National Festival of Music for Youth'",
+              },
+            ],
+          },
         ],
       }),
     },

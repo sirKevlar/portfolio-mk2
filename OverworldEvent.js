@@ -65,6 +65,15 @@ class OverworldEvent {
     message.init(document.querySelector('.game-container'));
   }
 
+  displayEmbed(resolve) {
+    const embed = new DisplayEmbed({
+      src: this.event.src,
+      description: this.event.description,
+      onComplete: () => resolve(),
+    });
+    embed.init(document.querySelector('.game-container'));
+  }
+
   displayImage(resolve) {
     const image = new DisplayImage({
       src: this.event.src,
@@ -72,6 +81,36 @@ class OverworldEvent {
       onComplete: () => resolve(),
     });
     image.init(document.querySelector('.game-container'));
+  }
+
+  displayImageAndText(resolve) {
+    const imageAndText = new DisplayImageAndText({
+      src: this.event.src,
+      description: this.event.description,
+      text: this.event.text,
+      onComplete: () => resolve(),
+    });
+    imageAndText.init(document.querySelector('.game-container'));
+  }
+
+  displayVideos(resolve) {
+    const videoGallery = new DisplayVideos({
+      videos: this.event.videos,
+      descriptions: this.event.descriptions,
+      onComplete: () => resolve(),
+    });
+    videoGallery.init(document.querySelector('.game-container'));
+  }
+
+  displayMp3s(resolve) {
+    const mp3Gallery = new DisplayMp3s({
+      mp3s: this.event.mp3s,
+      descriptions: this.event.descriptions,
+      cover: this.event.cover,
+      coverDescription: this.event.coverDescription,
+      onComplete: () => resolve(),
+    });
+    mp3Gallery.init(document.querySelector('.game-container'));
   }
 
   changeMap(resolve) {
@@ -99,6 +138,7 @@ class OverworldEvent {
   }
 
   pause(resolve) {
+    console.log('PAUSE PRESSED');
     this.map.isPaused = true;
     const menu = new PauseMenu({
       progress: this.map.overworld.progress,
@@ -113,6 +153,16 @@ class OverworldEvent {
 
   addStoryFlag(resolve) {
     window.playerState.storyFlags[this.event.flag] = true;
+    resolve();
+  }
+
+  repairVinyl(resolve) {
+    for (let record in window.playerState.records) {
+      // console.log(window.playerState.records[record]);
+      // window.playerState.records[record].hp =
+      //   window.playerState.records[record].maxHp;
+      // console.log(window.playerState.records[record]);
+    }
     resolve();
   }
 

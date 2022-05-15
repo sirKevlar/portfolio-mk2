@@ -1,4 +1,6 @@
 window.RecordTypes = {
+  alternative: 'alternative',
+  classical: 'classical',
   normal: 'normal',
   techno: 'techno',
   hiphop: 'hiphop',
