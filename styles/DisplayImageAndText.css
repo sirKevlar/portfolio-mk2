@@ -1,0 +1,35 @@
+.DisplayImageAndText {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    color: aliceblue;
+}
+
+.DisplayImageAndText_button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.DisplayImageAndText_div {
+    display: flex;
+}
+
+.DisplayImageAndText_img {
+    transform: scale(0.5) translateY(-32%) translateX(-44%);
+}
+
+.DisplayImageAndText_p {
+    position: absolute;
+    border-radius: 3px;
+    padding: 12px 8px;
+    width: 40%;
+    height: 75%;
+    top: 11%;
+    right: 20px;
+    font-size: 8px;
+}
+
