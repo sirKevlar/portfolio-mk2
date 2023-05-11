@@ -37,6 +37,9 @@ class Person extends GameObject {
   }
 
   startBehavior(state, behavior) {
+    if (!this.isMounted) {
+      return;
+    }
     //set character direction
     this.direction = behavior.direction;
     if (behavior.type === 'walk' && this.isWalking === false) {

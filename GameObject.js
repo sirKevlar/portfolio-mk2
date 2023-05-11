@@ -14,6 +14,7 @@ class GameObject {
     this.behaviorLoopIndex = 0;
 
     this.clickAction = config.clickAction || [];
+    this.retryTimeout = null;
   }
 
   mount(map) {
@@ -28,13 +29,18 @@ class GameObject {
   update() {}
 
   async doBehaviorEvent(map) {
-    //do nothing if higher priority things are happening
-    if (
-      map.isCutscenePlaying ||
-      this.behaviorLoop.length === 0 ||
-      this.isStanding ||
-      this.isWalking
-    ) {
+    
+    if (this.behaviorLoop.length === 0) {
+      return;
+    }
+    if (map.isCutscenePlaying) {
+      if (this.retryTimeout) {
+        clearTimeout(this.retryTimeout);
+      }
+
+      this.retryTimeout = setTimeout(() => {
+        this.doBehaviorEvent(map);
+      }, 1000);
       return;
     }
 
