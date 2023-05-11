@@ -1,7 +1,9 @@
 class OverworldMap {
   constructor(config) {
     this.overworld = null;
-    this.gameObjects = config.gameObjects;
+    this.gameObjects = {}; //Live content
+    this.configObjects = config.configObjects; //Config content
+
     this.cutsceneSpaces = config.cutsceneSpaces || {};
     this.walls = config.walls || {};
 
@@ -37,12 +39,35 @@ class OverworldMap {
   }
 
   mountObjects() {
-    Object.keys(this.gameObjects).forEach((key) => {
-      let object = this.gameObjects[key];
+    Object.keys(this.configObjects).forEach((key) => {
+      let object = this.configObjects[key];
       object.id = key;
 
-      //todo: determine if this object should mount
-      object.mount(this);
+      let instance;
+      if (object.type === 'Person') {
+        instance = new Person(object);
+      }
+      if (object.type === 'GameObject') {
+        instance = new GameObject(object);
+      }
+      if (object.type === 'VideoDisplay') {
+        instance = new VideoDisplay(object);
+      }
+      if (object.type === 'Painting') {
+        instance = new Painting(object);
+      }
+      if (object.type === 'EmbedDisplay') {
+        instance = new EmbedDisplay(object);
+      }
+      if (object.type === 'RecordPress') {
+        instance = new RecordPress(object);
+      }
+      if (object.type === 'BoomBox') {
+        instance = new BoomBox(object);
+      }
+      this.gameObjects[key] = instance;
+      this.gameObjects[key].id = key;
+      instance.mount(this);
     });
   }
 
@@ -66,9 +91,27 @@ class OverworldMap {
     }
 
     //reset NPCs
-    Object.values(this.gameObjects).forEach((object) =>
-      object.doBehaviorEvent(this)
-    );
+    // Object.values(this.gameObjects).forEach((object) =>
+    //   object.doBehaviorEvent(this)
+    // );
+    // The next 10 lines have replaced the above 3... Pending testing
+
+    //Restart idle behaviors after cutscene is over
+    Object.values(this.gameObjects).forEach((object) => {
+      const current = object.behaviorLoop[object.behaviorLoopIndex];
+      //Reset NPCs to do their idle behavior (if they are standing)
+      if (current && current.type === 'stand') {
+        object.doBehaviorEvent(this);
+      }
+      //Reset NPCs to do their walking behavior (if they are still and waiting)
+      if (
+        current &&
+        current.type === 'walk' &&
+        object.movingProgressRemaining === 0
+      ) {
+        object.doBehaviorEvent(this);
+      }
+    });
   }
 
   checkForActionCutscene() {
@@ -94,18 +137,6 @@ class OverworldMap {
       this.startCutscene(match[0].events);
     }
   }
-
-  addWall(x, y) {
-    this.walls[`${x},${y}`] = true;
-  }
-  removeWall(x, y) {
-    delete this.walls[`${x},${y}`];
-  }
-  moveWall(wasX, wasY, direction) {
-    this.removeWall(wasX, wasY);
-    const { x, y } = utils.nextPosition(wasX, wasY, direction);
-    this.addWall(x, y);
-  }
 }
 
 window.OverworldMaps = {
@@ -113,13 +144,15 @@ window.OverworldMaps = {
     id: 'Office',
     lowerSrc: '/assets/maps/office.png',
     upperSrc: '/assets/maps/officeUpper.png',
-    gameObjects: {
-      hero: new Person({
+    configObjects: {
+      hero: {
+        type: 'Person',
         isPlayerControlled: true,
         x: utils.withGrid(10),
         y: utils.withGrid(2),
-      }),
-      bookcaseLeft: new GameObject({
+      },
+      bookcaseLeft: {
+        type: 'GameObject',
         x: utils.withGrid(14),
         y: utils.withGrid(-1),
         src: '/assets/characters/blankSquare.png',
@@ -153,8 +186,9 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      bookcaseRight: new GameObject({
+      },
+      bookcaseRight: {
+        type: 'GameObject',
         x: utils.withGrid(18),
         y: utils.withGrid(-1),
         src: '/assets/characters/blankSquare.png',
@@ -170,8 +204,9 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      coffeeTableNote: new GameObject({
+      },
+      coffeeTableNote: {
+        type: 'GameObject',
         x: utils.withGrid(16),
         y: utils.withGrid(8),
         src: '/assets/characters/blankSquare.png',
@@ -188,7 +223,7 @@ window.OverworldMaps = {
               },
               {
                 type: 'textMessage',
-                text: "This house has 4 rooms: The office (this room) - Features React projects  and other office-y things... For example: if you click on the bookshelves in this room you can check out Kev's work history and get contact details",
+                text: "This house has 4 rooms: The office (this room) - Features React projects  and other office-y things... For example: if you face the bookshelves in this room and hit enter, you can check out Kev's work history and get contact details",
               },
               {
                 type: 'textMessage',
@@ -217,8 +252,9 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      deskLaptop: new GameObject({
+      },
+      deskLaptop: {
+        type: 'GameObject',
         x: utils.withGrid(16),
         y: utils.withGrid(0),
         src: '/assets/characters/blankSquare.png',
@@ -234,8 +270,9 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      conferenceTableLaptopRight: new VideoDisplay({
+      },
+      conferenceTableLaptopRight: {
+        type: 'VideoDisplay',
         x: utils.withGrid(4),
         y: utils.withGrid(2),
         src: '/assets/characters/blankSquare.png',
@@ -249,8 +286,9 @@ window.OverworldMaps = {
           'Northcoders graduation project',
           'Lightning talk - inspirational women in tech',
         ],
-      }),
-      conferenceTableLaptopLeft: new VideoDisplay({
+      },
+      conferenceTableLaptopLeft: {
+        type: 'VideoDisplay',
         x: utils.withGrid(3),
         y: utils.withGrid(2),
         src: '/assets/characters/blankSquare.png',
@@ -264,27 +302,40 @@ window.OverworldMaps = {
           'Northcoders graduation project',
           'Lightning talk - inspirational women in tech',
         ],
-      }),
-      mumPainting: new Painting({
+      },
+      mumPainting: {
+        type: 'Painting',
         x: utils.withGrid(3),
         y: utils.withGrid(-1),
         description: "Pictures of Pamela (Kev's Mum)",
         src: '/assets/paintings/mum.png',
         imgSrc: ['/assets/pictures/mum.jpeg'],
-      }),
-      ncPainting: new EmbedDisplay({
+      },
+      ncPainting: {
+        type: 'EmbedDisplay',
         x: utils.withGrid(5),
         y: utils.withGrid(-1),
         description:
           'Northcoders project using React, Express, PostgreSQL - Login: jessjelly',
         src: '/assets/paintings/nc.png',
         embedSrc: 'https://kev-morel-react-game-reviews.netlify.app',
-      }),
-      mum: new Person({
+      },
+      mum: {
+        type: 'Person',
         x: utils.withGrid(7),
         y: utils.withGrid(1),
         src: '/assets/characters/mum.png',
         clickAction: [
+          {
+            required: ['DEFEATED_STAN'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Yep you've completed this game. I know it was quick, but it was just a cheap way to get you to look at Kev's work anyway. I hope you enjoyed it",
+                faceHero: 'mum',
+              },
+            ],
+          },
           {
             required: ['TALKED_TO_JIM_TWICE'],
             events: [
@@ -311,7 +362,7 @@ window.OverworldMaps = {
             events: [
               {
                 type: 'textMessage',
-                text: 'Well I hope you feel proud of yourself, picking on a septuagenarian and I hope you like that vinyl of mine. Now your collection is getting strong, I would go have a word with Jim in the games room East of here. His music taste is definitely different to mine!',
+                text: 'Well I hope you feel proud of yourself, picking on a septuagenarian and I hope you like that vinyl of mine. Now your collection is getting strong, I would go have a word with Jim in the games room East of here',
                 faceHero: 'mum',
               },
               { type: 'addStoryFlag', flag: 'TALKED_TO_MUM_FIVE' },
@@ -340,7 +391,7 @@ window.OverworldMaps = {
             ],
           },
           {
-            required: ['TALKED_TO_MUM_TWICE', 'DEFEATED_STEVE'],
+            required: ['TALKED_TO_MUM_TWICE', 'DEFEATED_SLIMY'],
             events: [
               {
                 type: 'textMessage',
@@ -388,8 +439,9 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      slime: new Person({
+      },
+      slime: {
+        type: 'Person',
         x: utils.withGrid(3),
         y: utils.withGrid(9),
         src: '/assets/characters/slime.png',
@@ -413,7 +465,17 @@ window.OverworldMaps = {
         ],
         clickAction: [
           {
-            required: ['TALKED_TO_MUM', 'DEFEATED_STEVE'],
+            required: ['DEFEATED_STAN'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Yep you've completed this game. I know it was quick, but it was just a cheap way to get you to look at Kev's work anyway. I hope you enjoyed it",
+                faceHero: 'slime',
+              },
+            ],
+          },
+          {
+            required: ['TALKED_TO_MUM', 'DEFEATED_SLIMY'],
             events: [
               {
                 type: 'textMessage',
@@ -423,7 +485,7 @@ window.OverworldMaps = {
             ],
           },
           {
-            required: ['DEFEATED_STEVE'],
+            required: ['DEFEATED_SLIMY'],
             events: [
               {
                 type: 'textMessage',
@@ -444,7 +506,7 @@ window.OverworldMaps = {
                 text: 'You can practice fighting against me, [puffs up their chest] I am like the slime Ali...',
                 faceHero: 'slime',
               },
-              { type: 'battle', enemyId: 'steve' },
+              { type: 'battle', enemyId: 'slime' },
               {
                 type: 'textMessage',
                 text: 'If you would have let me finish, I was saying I am like the slime Alistair McGowan. Great at impersonations, rubbish at vinyl wars',
@@ -458,27 +520,30 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      recordPress: new RecordPress({
+      },
+      recordPress: {
+        type: 'RecordPress',
         x: utils.withGrid(1),
         y: utils.withGrid(0),
         storyFlag: 'USED_RECORD_PRESS',
         records: ['t001', 'r001'],
-      }),
-      calculator: new EmbedDisplay({
+      },
+      calculator: {
+        type: 'EmbedDisplay',
         x: utils.withGrid(3),
         y: utils.withGrid(7),
         description: 'calculator (mini react app)',
         src: '/assets/objects/calculator.png',
         embedSrc: 'https://kev-morel-react-calculator.netlify.app',
-      }),
-      colorSample: new EmbedDisplay({
+      },
+      colorSample: {
+        type: 'EmbedDisplay',
         x: utils.withGrid(4),
         y: utils.withGrid(7),
         description: 'color schemes (mini react app)',
         src: '/assets/objects/colors.png',
         embedSrc: 'https://kev-morel-color-schemes.netlify.app',
-      }),
+      },
     },
     walls: {
       [utils.asGridCoord(0, -1)]: true, //left wall start
@@ -737,13 +802,15 @@ window.OverworldMaps = {
     id: 'GamesRoom',
     lowerSrc: '/assets/maps/gamesRoom.png',
     upperSrc: '/assets/maps/gamesRoomUpper.png',
-    gameObjects: {
-      hero: new Person({
+    configObjects: {
+      hero: {
+        type: 'Person',
         isPlayerControlled: true,
         // x: utils.withGrid(6),
         // y: utils.withGrid(4),
-      }),
-      jim: new Person({
+      },
+      jim: {
+        type: 'Person',
         x: utils.withGrid(6),
         y: utils.withGrid(5),
         src: '/assets/characters/jim.png',
@@ -781,6 +848,138 @@ window.OverworldMaps = {
         ],
         clickAction: [
           {
+            required: ['DEFEATED_STAN'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Yep you've completed this game. I know it was quick, but it was just a cheap way to get you to look at Kev's work anyway. I hope you enjoyed it",
+                faceHero: 'jim',
+              },
+              { type: 'repairVinyl' },
+            ],
+          },
+          {
+            required: ['TALKED_TO_JIM_SEVEN'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "What are you waiting for? I have heard that if anyone can actually beat that skeleton that they will get a discount code for Kev's album...",
+                faceHero: 'jim',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_KEV'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'Feels good beating Kev eh? I should know pal, we have been playing snooker against each other for over 30 years and I have actually won 99% of those matches. Go and beat that evil skeleton in the garden and free us all',
+                faceHero: 'jim',
+              },
+              { type: 'repairVinyl' },
+              { type: 'addStoryFlag', flag: 'TALKED_TO_JIM_SEVEN' },
+            ],
+          },
+          {
+            required: ['TALKED_TO_JIM_SIX'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'Nows you time to shine pal. Get in there, give it some and pull Kev down a peg or two',
+                faceHero: 'jim',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_ROB'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Rob has a sick collection blood, but Kev's is as eclectic as it gets. Now let me fix those vinyl up",
+                faceHero: 'jim',
+              },
+              { type: 'repairVinyl' },
+              { type: 'addStoryFlag', flag: 'TALKED_TO_JIM_SIX' },
+            ],
+          },
+          {
+            required: ['TALKED_TO_JIM_FIVE'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'Time to go battle in the music room pal',
+                faceHero: 'jim',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_ALYS'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Wow. I don't know many who have survived battling big Al! Respect fam! You earned some vinyl repairs",
+                faceHero: 'jim',
+              },
+              { type: 'repairVinyl' },
+              { type: 'addStoryFlag', flag: 'TALKED_TO_JIM_FIVE' },
+            ],
+          },
+          {
+            required: ['TALKED_TO_JIM_FOUR'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "You're going to have to beat Alys if you wanna battle with Kev pal",
+                faceHero: 'jim',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_ISLA'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "You beat Isla already? Maybe Kev needs to make this game more difficult! I don't expect to see you back here after taking Alys on... Good luck, you'll need it",
+                faceHero: 'jim',
+              },
+              { type: 'repairVinyl' },
+              { type: 'addStoryFlag', flag: 'TALKED_TO_JIM_FOUR' },
+            ],
+          },
+          {
+            required: ['TALKED_TO_JIM_THRICE'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'Have you spoken to Isla and Alys yet? I think they may be up for a battle',
+                faceHero: 'jim',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_JIM'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "You must be northern yourself pal. Your funk chin is powerful! Enjoy that vinyl of mine and before you ask, yeah I will mend your current lineup. I would go and talk to Kev's kids next, well if you want the story to continue anyway...",
+                faceHero: 'jim',
+              },
+              { type: 'repairVinyl' },
+              { type: 'addStoryFlag', flag: 'TALKED_TO_JIM_THRICE' },
+            ],
+          },
+          {
+            required: ['TALKED_TO_JIM_TWICE'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Let's see how your collection stands up against mine pal. Prepare to face off against some of the greatest techno and hip hop in history",
+                faceHero: 'jim',
+              },
+              { type: 'battle', enemyId: 'jim' },
+            ],
+          },
+          {
             required: ['TALKED_TO_JIM', 'DEFEATED_MUM'],
             events: [
               {
@@ -793,8 +992,13 @@ window.OverworldMaps = {
                 text: "I can repair your damaged vinyl though pal. If you wanna battle Kev, you're gonna need all the help you can get!",
                 faceHero: 'jim',
               },
-              { type: 'addStoryFlag', flag: 'TALKED_TO_JIM_TWICE' },
               { type: 'repairVinyl' },
+              {
+                type: 'textMessage',
+                text: "You can come see me again when you defeat someone and if I'm not too busy, I might fix your vinyl up. Let me know if you fancy a battle, I think you might be ready...",
+                faceHero: 'jim',
+              },
+              { type: 'addStoryFlag', flag: 'TALKED_TO_JIM_TWICE' },
             ],
           },
           {
@@ -808,8 +1012,9 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      jimPainting: new Painting({
+      },
+      jimPainting: {
+        type: 'Painting',
         x: utils.withGrid(4),
         y: utils.withGrid(-1),
         description:
@@ -820,44 +1025,50 @@ window.OverworldMaps = {
           '/assets/pictures/jim2.jpeg',
           '/assets/pictures/jim3.jpeg',
         ],
-      }),
-      arcadeOneLeft: new EmbedDisplay({
+      },
+      arcadeOneLeft: {
+        type: 'EmbedDisplay',
         x: utils.withGrid(1),
         y: utils.withGrid(0),
         description: 'memory matcher game built with vanilla html css js',
         src: '/assets/characters/blankSquare.png',
         embedSrc:
           'https://agitated-yonath-d2d0d6.netlify.app/memory-matching-game/memory-matcher.html',
-      }),
-      arcadeOneRight: new EmbedDisplay({
+      },
+      arcadeOneRight: {
+        type: 'EmbedDisplay',
         x: utils.withGrid(2),
         y: utils.withGrid(0),
         description: 'memory matcher game built with vanilla html css js',
         src: '/assets/characters/blankSquare.png',
         embedSrc:
           'https://agitated-yonath-d2d0d6.netlify.app/memory-matching-game/memory-matcher.html',
-      }),
-      arcadeTwoLeft: new EmbedDisplay({
+      },
+      arcadeTwoLeft: {
+        type: 'EmbedDisplay',
         x: utils.withGrid(18),
         y: utils.withGrid(0),
         description:
           'solitaire game built using react and firebase (in development)', //v1s1tor0n3
         src: '/assets/characters/blankSquare.png',
         embedSrc: 'https://kev-morel-react-solitaire.netlify.app',
-      }),
-      arcadeTwoRight: new EmbedDisplay({
+      },
+      arcadeTwoRight: {
+        type: 'EmbedDisplay',
         x: utils.withGrid(19),
         y: utils.withGrid(0),
         description:
           'solitaire game built using react and firebase (in development)',
         src: '/assets/characters/blankSquare.png',
         embedSrc: 'https://kev-morel-react-solitaire.netlify.app',
-      }),
-      boomBox: new BoomBox({
+      },
+      boomBox: {
+        type: 'BoomBox',
         x: utils.withGrid(18),
         y: utils.withGrid(7),
         description: 'boom box',
         src: '/assets/objects/boomBox.png',
+        album: 'theLiar',
         mp3s: [
           '/assets/mp3s/breathe.mp3',
           '/assets/mp3s/runRabbit.mp3',
@@ -897,7 +1108,7 @@ window.OverworldMaps = {
           `</br></br></br></br></br></br> This album was also the first to be recorded at 'the Kennel' the headquarters for Dogface Records and was the inspiration for the foundation of the label </br></br> The DIY nature of the project became a theme for Dogface Records projects, with the label often handling all aspects of releasing records 'in-house'`,
           `</br></br></br></br></br></br> The Liar European tour was the first Rob and Kev organized and was the catalyst for most of their success in Germany </br></br> The team that worked on 'The liar' became the backbone of almost all Dogface Records projects, helping to promote the work of many of Manchester's unsung music heroes`,
         ],
-      }),
+      },
     },
     walls: {
       [utils.asGridCoord(0, -1)]: true, //left wall top start
@@ -1139,13 +1350,15 @@ window.OverworldMaps = {
     id: 'MusicRoom',
     lowerSrc: '/assets/maps/musicRoom.png',
     upperSrc: '/assets/maps/gamesRoomUpper.png',
-    gameObjects: {
-      hero: new Person({
+    configObjects: {
+      hero: {
+        type: 'Person',
         isPlayerControlled: true,
         // x: utils.withGrid(4),
         // y: utils.withGrid(3),
-      }),
-      kev: new Person({
+      },
+      kev: {
+        type: 'Person',
         x: utils.withGrid(7),
         y: utils.withGrid(1),
         src: '/assets/characters/kev.png',
@@ -1165,6 +1378,42 @@ window.OverworldMaps = {
         ],
         clickAction: [
           {
+            required: ['DEFEATED_STAN'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Yep you've completed this game. I know it was quick, but it was just a cheap way to get you to look at my work anyway. I hope you enjoyed it",
+                faceHero: 'kev',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_KEV'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "You're truly ready. The musical light shines strong in you. Go and defeat Stan the Skeleton and you will definitely have earned the right to purchase my album at a discounted rate!",
+                faceHero: 'kev',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_ROB'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "'Hey! How are you enjoying the game?' say's Kev. 'Pretty good. Perhaps a bit linear' you reply. Kev shrugs",
+                faceHero: 'kev',
+              },
+              {
+                type: 'textMessage',
+                text: "You've come a long way, young padwan! To be honest I kind of hope you win... Someone has to beat that pesky skeleton in my garden eventually!",
+                faceHero: 'kev',
+              },
+              { type: 'battle', enemyId: 'kev' },
+            ],
+          },
+          {
             events: [
               {
                 type: 'textMessage',
@@ -1174,8 +1423,9 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      rob: new Person({
+      },
+      rob: {
+        type: 'Person',
         x: utils.withGrid(16),
         y: utils.withGrid(1),
         src: '/assets/characters/rob.png',
@@ -1195,6 +1445,37 @@ window.OverworldMaps = {
         ],
         clickAction: [
           {
+            required: ['DEFEATED_STAN'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Yep you've completed this game. I know it was quick, but it was just a cheap way to get you to look at Kev's work anyway. I hope you enjoyed it",
+                faceHero: 'rob',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_ROB'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "You are one seriously tough individual! I think you might be ready to face off against the most eclectic music collection you're likely to see, Kev's... Good luck!",
+                faceHero: 'rob',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_ALYS'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'Whoa! You beat Alys and Isla! Kev is gonna be pretty sore about that I imagine... You want to fight Kev? Then you will have to pit your collection against mine. Only rock classics here...',
+                faceHero: 'rob',
+              },
+              { type: 'battle', enemyId: 'rob' },
+            ],
+          },
+          {
             events: [
               {
                 type: 'textMessage',
@@ -1204,8 +1485,9 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      sdgPainting: new Painting({
+      },
+      sdgPainting: {
+        type: 'Painting',
         x: utils.withGrid(3),
         y: utils.withGrid(-1),
         description: "pictures of the band 'Still Down Gill'",
@@ -1223,8 +1505,9 @@ window.OverworldMaps = {
           '/assets/pictures/SDG10.jpeg',
           '/assets/pictures/SDG11.jpeg',
         ],
-      }),
-      dfrPainting: new Painting({
+      },
+      dfrPainting: {
+        type: 'Painting',
         x: utils.withGrid(5),
         y: utils.withGrid(-1),
         description:
@@ -1248,8 +1531,9 @@ window.OverworldMaps = {
           '/assets/pictures/forgeOn3.jpeg',
           '/assets/pictures/forgeOn4.jpeg',
         ],
-      }),
-      kevRobPainting: new Painting({
+      },
+      kevRobPainting: {
+        type: 'Painting',
         x: utils.withGrid(14),
         y: utils.withGrid(-1),
         description:
@@ -1271,8 +1555,9 @@ window.OverworldMaps = {
           '/assets/pictures/kevRob15.jpeg',
           '/assets/pictures/kevRob16.jpeg',
         ],
-      }),
-      robPainting: new Painting({
+      },
+      robPainting: {
+        type: 'Painting',
         x: utils.withGrid(10),
         y: utils.withGrid(-1),
         description:
@@ -1286,8 +1571,9 @@ window.OverworldMaps = {
           '/assets/pictures/rob5.jpeg',
           '/assets/pictures/rob6.jpeg',
         ],
-      }),
-      kevPainting: new Painting({
+      },
+      kevPainting: {
+        type: 'Painting',
         x: utils.withGrid(12),
         y: utils.withGrid(-1),
         description: 'pictures of Kev',
@@ -1311,8 +1597,9 @@ window.OverworldMaps = {
           '/assets/pictures/kev17.jpeg',
           '/assets/pictures/kev18.jpeg',
         ],
-      }),
-      miscPainting: new Painting({
+      },
+      miscPainting: {
+        type: 'Painting',
         x: utils.withGrid(18),
         y: utils.withGrid(-1),
         description: "other band pics inc. 'the Consolations' & 'the Jannocks'",
@@ -1334,12 +1621,14 @@ window.OverworldMaps = {
           '/assets/pictures/lomax.jpeg',
           '/assets/pictures/wedding.jpeg',
         ],
-      }),
-      boomBox: new BoomBox({
+      },
+      boomBox: {
+        type: 'BoomBox',
         x: utils.withGrid(2),
         y: utils.withGrid(7),
         description: 'boom box',
         src: '/assets/objects/boomBox.png',
+        album: 'flatPackGallows',
         mp3s: [
           '/assets/mp3s/deepRiverBlues.mp3',
           '/assets/mp3s/fuzzy.mp3',
@@ -1387,8 +1676,9 @@ window.OverworldMaps = {
           `The album was fully funded thanks to a successful kickstarter campaign, several incredibly generous fans and Kev's awesome family.</br> This paid for CDs, t-shirts, mugs, posters, fliers and a European tour</br></br> Special thanks to: </br></br>Angie Fitzgerald</br>Biker FM</br>Gaz Seddon</br>Gerry Howley</br>James Barber</br>Jens Lengauer</br>Jo Bell</br>NABD</br>Pamela Morel</br>Peer Van See</br>Phil Morel</br>Rick Hulse</br>Vicky Morel</br></br>For all their support 💖`,
           `</br></br>The Flat Pack Gallows European Tour 2014 was the final and biggest of four European tours Kev organised with his long term musical partner Robert John:</br></br></br></br></br>01/10: THE VAULTS, Cirencester</br>02/10: DRUID'S CELLAR, Brugges</br>03/10: KREFELD UNPLUGGED, Krefeld</br>04/10: BLAUES HAUS, Mönchengladbach</br>05/10: FATSCH, Kalk</br>08/10: AKZENT, Landau</br>09/10: PALAIS RISCHER, Heidelberg</br>10/10: SCRUFFY'S, Kalsruhe</br>11/10: CLEARING BARREL, Kaiserslautern</br>14/10: SOFA CONCERTS, Stuttgart</br>16/10: HERTZSCHLAG, Brandenburg</br>17/10: HAVEL RESTAURANT, Brandenburg`,
         ],
-      }),
-      tv: new VideoDisplay({
+      },
+      tv: {
+        type: 'VideoDisplay',
         x: utils.withGrid(17),
         y: utils.withGrid(7),
         description: 'tv',
@@ -1403,7 +1693,7 @@ window.OverworldMaps = {
           'Robert John - Augustendiele',
           'Rob and Kev - Bang bang',
         ],
-      }),
+      },
     },
     walls: {
       [utils.asGridCoord(0, -1)]: true, //left wall top start
@@ -1586,13 +1876,15 @@ window.OverworldMaps = {
     id: 'LivingArea',
     lowerSrc: '/assets/maps/livingArea.png',
     upperSrc: '/assets/maps/officeUpper.png',
-    gameObjects: {
-      hero: new Person({
+    configObjects: {
+      hero: {
+        type: 'Person',
         isPlayerControlled: true,
         // x: utils.withGrid(10),
         // y: utils.withGrid(6),
-      }),
-      isla: new Person({
+      },
+      isla: {
+        type: 'Person',
         x: utils.withGrid(6),
         y: utils.withGrid(3),
         src: '/assets/characters/isla.png',
@@ -1612,6 +1904,47 @@ window.OverworldMaps = {
         ],
         clickAction: [
           {
+            required: ['DEFEATED_STAN'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Yep you've completed this game. I know it was quick, but it was just a cheap way to get you to look at Kev's work anyway. I hope you enjoyed it",
+                faceHero: 'isla',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_ALYS'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'Whoa! You beat Alys too!?! Have you been to see Kevvy and Rob yet?',
+                faceHero: 'isla',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_ISLA'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Isla slow claps you sarcastically... Well done! You managed to beat a ten year old. Don't think that just because she's my little sister, that Alys will be any easier to beat. Good luck!",
+                faceHero: 'isla',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_JIM'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "You beat Jim eh? Well Jim wasn't brought up on anime like me. I learned my moves from One Punch Man. Prepare for destruction",
+                faceHero: 'isla',
+              },
+              { type: 'battle', enemyId: 'isla' },
+            ],
+          },
+          {
             events: [
               {
                 type: 'textMessage',
@@ -1621,8 +1954,9 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      alys: new Person({
+      },
+      alys: {
+        type: 'Person',
         x: utils.withGrid(15),
         y: utils.withGrid(9),
         src: '/assets/characters/alys.png',
@@ -1660,6 +1994,47 @@ window.OverworldMaps = {
         ],
         clickAction: [
           {
+            required: ['DEFEATED_STAN'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "Yep you've completed this game. I know it was quick, but it was just a cheap way to get you to look at Kev's work anyway. I hope you enjoyed it",
+                faceHero: 'alys',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_ALYS'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'Alys stares at you for a few seconds... I speak three languages you know: Spanish, Scottish and my own',
+                faceHero: 'alys',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_ISLA'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'Nobody picks on my big sister! Shouts Alys. She is tiny, but you get the feeling her presence may be huge',
+                faceHero: 'alys',
+              },
+              { type: 'battle', enemyId: 'alys' },
+            ],
+          },
+          {
+            required: ['DEFEATED_JIM'],
+            events: [
+              {
+                type: 'textMessage',
+                text: "If you want to challenge daddy, you will have to beat us first. ISLA ISLA there's someone here to battle with you...",
+                faceHero: 'alys',
+              },
+            ],
+          },
+          {
             events: [
               {
                 type: 'textMessage',
@@ -1669,8 +2044,9 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      alysPainting: new Painting({
+      },
+      alysPainting: {
+        type: 'Painting',
         x: utils.withGrid(13),
         y: utils.withGrid(-1),
         description: "pictures of Alys (Kev's youngest daughter)",
@@ -1682,8 +2058,9 @@ window.OverworldMaps = {
           '/assets/pictures/alys4.jpg',
           '/assets/pictures/alys5.jpg',
         ],
-      }),
-      islaPainting: new Painting({
+      },
+      islaPainting: {
+        type: 'Painting',
         x: utils.withGrid(15),
         y: utils.withGrid(-1),
         description: "pictures of Isla (Kev's eldest daughter)",
@@ -1695,8 +2072,9 @@ window.OverworldMaps = {
           '/assets/pictures/isla4.jpg',
           '/assets/pictures/isla5.jpg',
         ],
-      }),
-      aiPainting: new Painting({
+      },
+      aiPainting: {
+        type: 'Painting',
         x: utils.withGrid(17),
         y: utils.withGrid(-1),
         description: 'pictures of Isla and Alys',
@@ -1710,8 +2088,9 @@ window.OverworldMaps = {
           '/assets/pictures/ai6.jpg',
           '/assets/pictures/ai7.jpg',
         ],
-      }),
-      tvL: new VideoDisplay({
+      },
+      tvL: {
+        type: 'VideoDisplay',
         x: utils.withGrid(14),
         y: utils.withGrid(6),
         description: 'tvL',
@@ -1726,8 +2105,9 @@ window.OverworldMaps = {
           'Kev Morel - Augustendiele',
           'Kev Morel - Nachtigal',
         ],
-      }),
-      tvR: new VideoDisplay({
+      },
+      tvR: {
+        type: 'VideoDisplay',
         x: utils.withGrid(15),
         y: utils.withGrid(6),
         description: 'tvR',
@@ -1742,8 +2122,9 @@ window.OverworldMaps = {
           'Kev Morel - Augustendiele',
           'Kev Morel - Nachtigal',
         ],
-      }),
-      coffeeTableNote: new GameObject({
+      },
+      coffeeTableNote: {
+        type: 'GameObject',
         x: utils.withGrid(7),
         y: utils.withGrid(0),
         src: '/assets/characters/blankSquare.png',
@@ -1761,10 +2142,11 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
-      bookcaseRight: new GameObject({
+      },
+      bookcaseRight: {
+        type: 'GameObject',
         x: utils.withGrid(8),
-        y: utils.withGrid(0),
+        y: utils.withGrid(-1),
         src: '/assets/characters/blankSquare.png',
         clickAction: [
           {
@@ -1784,7 +2166,7 @@ window.OverworldMaps = {
             ],
           },
         ],
-      }),
+      },
     },
     walls: {
       [utils.asGridCoord(0, -1)]: true, //left wall start
@@ -1954,13 +2336,15 @@ window.OverworldMaps = {
     id: 'OutsideLeft',
     lowerSrc: '/assets/maps/outsideLeft.png',
     upperSrc: '/assets/characters/blankSquare.png',
-    gameObjects: {
-      hero: new Person({
+    configObjects: {
+      hero: {
+        type: 'Person',
         isPlayerControlled: true,
         // x: utils.withGrid(10),
         // y: utils.withGrid(3),
-      }),
-      skeleton: new Person({
+      },
+      skeleton: {
+        type: 'Person',
         x: utils.withGrid(5),
         y: utils.withGrid(2),
         src: '/assets/characters/skeleton.png',
@@ -2012,17 +2396,38 @@ window.OverworldMaps = {
         ],
         clickAction: [
           {
+            required: ['DEFEATED_STAN'],
             events: [
               {
                 type: 'textMessage',
-                text: "You can practice fighting against me if you like, I'm tougher than I look",
+                text: "Your music taste is unbelievable! You will probably like Kev's album then! Here's a discount code: I_b3atStan",
+                faceHero: 'skeleton',
+              },
+            ],
+          },
+          {
+            required: ['DEFEATED_KEV'],
+            events: [
+              {
+                type: 'textMessage',
+                text: 'At last! Someone worthy of a battle... Prepare to be destroyed by the greatest in classical music',
+                faceHero: 'skeleton',
+              },
+              { type: 'battle', enemyId: 'skeleton' },
+            ],
+          },
+          {
+            events: [
+              {
+                type: 'textMessage',
+                text: "Hey there! I'm the final boss... Come back to fight me if you've beaten Kev. If you can beat me, I will give you a discount code for Kev's album, oooooh!",
                 faceHero: 'skeleton',
               },
               // { type: 'battle', enemyId: 'mum' },
             ],
           },
         ],
-      }),
+      },
     },
     walls: {
       [utils.asGridCoord(0, -1)]: true, //left wall start
@@ -2187,12 +2592,13 @@ window.OverworldMaps = {
     id: 'OutsideRight',
     lowerSrc: '/assets/maps/outsideRight.png',
     upperSrc: '/assets/characters/blankSquare.png',
-    gameObjects: {
-      hero: new Person({
+    configObjects: {
+      hero: {
+        type: 'Person',
         isPlayerControlled: true,
         // x: utils.withGrid(10),
         // y: utils.withGrid(3),
-      }),
+      },
     },
     walls: {
       [utils.asGridCoord(0, -1)]: true, //left wall start

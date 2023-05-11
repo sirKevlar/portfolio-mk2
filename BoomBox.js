@@ -14,6 +14,7 @@ class BoomBox extends GameObject {
         events: [
           {
             type: 'displayMp3s',
+            album: config.album,
             mp3s: config.mp3s,
             descriptions: config.descriptions,
             cover: config.cover,

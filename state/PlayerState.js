@@ -3,8 +3,8 @@ class PlayerState {
     this.records = {
       r1: {
         recordId: 'n003',
-        hp: 30,
-        maxHp: 30,
+        hp: 50,
+        maxHp: 50,
         xp: 0,
         maxXp: 100,
         level: 1,
@@ -12,8 +12,8 @@ class PlayerState {
       },
       r2: {
         recordId: 'n004',
-        hp: 30,
-        maxHp: 30,
+        hp: 50,
+        maxHp: 50,
         xp: 0,
         maxXp: 100,
         level: 1,
@@ -21,8 +21,8 @@ class PlayerState {
       },
       r3: {
         recordId: 'n005',
-        hp: 30,
-        maxHp: 30,
+        hp: 50,
+        maxHp: 50,
         xp: 0,
         maxXp: 100,
         level: 1,
@@ -35,15 +35,22 @@ class PlayerState {
       { actionId: 'item_recoverHp', instanceId: 'item2' },
       { actionId: 'item_recoverHp', instanceId: 'item3' },
     ];
-    this.storyFlags = { TALKED_TO_JIM: true, DEFEATED_MUM: true };
+    this.storyFlags = {};
+  }
+
+  repairRecords() {
+    for (let record in this.records) {
+      this.records[record].hp = this.records[record].maxHp;
+    }
+    utils.emitEvent('LineupChanged');
   }
 
   addRecord(recordId) {
     const newId = `p${Date.now()}` + Math.floor(Math.random() * 99999);
     this.records[newId] = {
       recordId,
-      hp: 50,
-      maxHp: 50,
+      hp: 60,
+      maxHp: 60,
       xp: 0,
       maxXp: 100,
       level: 1,
@@ -53,7 +60,6 @@ class PlayerState {
       this.lineup.push(newId);
     }
     utils.emitEvent('LineupChanged');
-    console.log(this);
   }
 
   swapLineup(oldId, incomingId) {

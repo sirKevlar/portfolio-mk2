@@ -71,11 +71,9 @@ class Overworld {
 
     if (heroInitialState) {
       const { hero } = this.map.gameObjects;
-      this.map.removeWall(hero.x, hero.y);
       hero.x = heroInitialState.x;
       hero.y = heroInitialState.y;
       hero.direction = heroInitialState.direction;
-      this.map.addWall(hero.x, hero.y);
     }
 
     this.progress.mapId = mapConfig.id;
@@ -126,26 +124,26 @@ class Overworld {
     this.startGameLoop();
 
     this.map.startCutscene([
-      // {
-      //   type: 'textMessage',
-      //   text: 'You open your eyes. Your vision is blurred and your surroundings are unfamiliar. You thought you were visiting the portfolio site of Kev Morel, but instead you seem to be trapped in some sort of digital nightmare!',
-      // },
-      // { who: 'hero', type: 'walk', direction: 'down' },
-      // { who: 'hero', type: 'walk', direction: 'down' },
-      // { who: 'hero', type: 'walk', direction: 'down' },
-      // { who: 'hero', type: 'walk', direction: 'down' },
-      // { who: 'hero', type: 'walk', direction: 'down' },
-      // { who: 'hero', type: 'walk', direction: 'down' },
-      // { who: 'slime', type: 'walk', direction: 'right' },
-      // { who: 'slime', type: 'walk', direction: 'right' },
-      // { who: 'slime', type: 'walk', direction: 'right' },
-      // { who: 'slime', type: 'walk', direction: 'right' },
-      // { who: 'slime', type: 'walk', direction: 'right' },
-      // { who: 'slime', type: 'walk', direction: 'right' },
-      // {
-      //   type: 'textMessage',
-      //   text: 'A friendly slime approaches and reassures you that this IS the portfolio site of Kev Morel and that exploring the site will reveal some of his projects... If you prefer a boring static website, use the laptop in the North East of this room',
-      // },
+      {
+        type: 'textMessage',
+        text: 'You open your eyes. Your vision is blurred and your surroundings are unfamiliar. You thought you were visiting the portfolio site of Kev Morel, but instead you seem to be trapped in some sort of digital nightmare!',
+      },
+      { who: 'hero', type: 'walk', direction: 'down' },
+      { who: 'hero', type: 'walk', direction: 'down' },
+      { who: 'hero', type: 'walk', direction: 'down' },
+      { who: 'hero', type: 'walk', direction: 'down' },
+      { who: 'hero', type: 'walk', direction: 'down' },
+      { who: 'hero', type: 'walk', direction: 'down' },
+      { who: 'slime', type: 'walk', direction: 'right' },
+      { who: 'slime', type: 'walk', direction: 'right' },
+      { who: 'slime', type: 'walk', direction: 'right' },
+      { who: 'slime', type: 'walk', direction: 'right' },
+      { who: 'slime', type: 'walk', direction: 'right' },
+      { who: 'slime', type: 'walk', direction: 'right' },
+      {
+        type: 'textMessage',
+        text: 'A friendly slime approaches and reassures you that this IS the portfolio site of Kev Morel and that exploring the site will reveal some of his projects... If you prefer a boring static website, use the laptop in the North East of this room',
+      },
       {
         type: 'textMessage',
         text: 'You spot a note on the coffee table near the sofa... This could be a good place to start... USE "WASD" OR ARROW KEYS TO MOVE AROUND, "ENTER" TO INTERACT WITH STUFF, SPEAK TO PEOPLE AND SPEED UP TEXT AND "ESC" TO PAUSE OR SWAP VINYL',

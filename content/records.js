@@ -15,7 +15,7 @@ window.Records = {
     type: RecordTypes.alternative,
     src: '/assets/objects/alternativeRecord.png',
     icon: '/assets/icons/alternative.png',
-    actions: ['damage1'],
+    actions: ['damage8'],
     description: "Title track from one of Nick Cave's best albums",
   },
   a002: {
@@ -24,7 +24,7 @@ window.Records = {
     type: RecordTypes.alternative,
     src: '/assets/objects/alternativeRecord.png',
     icon: '/assets/icons/alternative.png',
-    actions: ['damage1'],
+    actions: ['damage8', 'damage2', 'damage3', 'groovyStatus'],
     description: "One of Alys' favourite songs by the amazing Nadine Shah",
   },
   a003: {
@@ -33,7 +33,7 @@ window.Records = {
     type: RecordTypes.alternative,
     src: '/assets/objects/alternativeRecord.png',
     icon: '/assets/icons/alternative.png',
-    actions: ['damage1'],
+    actions: ['damage8'],
     description: 'Weird and wonderful alt-house tune from musical genius Björk',
   },
   a004: {
@@ -42,7 +42,7 @@ window.Records = {
     type: RecordTypes.alternative,
     src: '/assets/objects/alternativeRecord.png',
     icon: '/assets/icons/alternative.png',
-    actions: ['damage1'],
+    actions: ['damage8'],
     description: 'South American inspired tune from alt pop guru Beck',
   },
   a005: {
@@ -51,7 +51,7 @@ window.Records = {
     type: RecordTypes.alternative,
     src: '/assets/objects/alternativeRecord.png',
     icon: '/assets/icons/alternative.png',
-    actions: ['damage1'],
+    actions: ['damage8'],
     description: 'Virtually any tune from Bowie the king of weird, would do',
   },
   a006: {
@@ -60,7 +60,7 @@ window.Records = {
     type: RecordTypes.alternative,
     src: '/assets/objects/alternativeRecord.png',
     icon: '/assets/icons/alternative.png',
-    actions: ['damage1'],
+    actions: ['damage8'],
     description: 'Armand Van Heldens remix of this Tori Amos tune is epic!',
   },
   b001: {
@@ -69,7 +69,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage9', 'offKeyStatus'],
     description: "Classic Blues from the Howlin' Wolf",
   },
   b002: {
@@ -78,7 +78,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage9', 'offKeyStatus'],
     description: 'Awesome blues from Blind Owl and Canned Heat',
   },
   b003: {
@@ -87,7 +87,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage9', 'offKeyStatus'],
     description:
       "Nina Simone's version of the traditional African American song",
   },
@@ -97,7 +97,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage9', 'offKeyStatus'],
     description:
       "This 1969 song from Aretha Franklin is slow blues at it's best",
   },
@@ -107,7 +107,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage9', 'offKeyStatus'],
     description:
       "This Gladys Knight tune is Kev's favourite, at least it is in 2022",
   },
@@ -117,17 +117,17 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage9', 'offKeyStatus'],
     description:
       "So many great versions of this song. Kev's fave 2: Otis Reading and The Commitments",
   },
-  b006: {
+  b007: {
     name: 'Higher and higher',
     artist: 'Jackie Wilson',
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage9', 'offKeyStatus'],
     description: 'Awesome uplifting tune from Jackie Wilson',
   },
   c001: {
@@ -136,7 +136,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage6', 'damage2', 'damage3', 'groovyStatus', 'offKeyStatus'],
     description: "Johann Sebastian Bach is Kev's all time classical music hero",
   },
   c002: {
@@ -145,7 +145,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage6', 'offKeyStatus'],
     description: "This Vivaldi piece is one of Alys' favourite pieces of music",
   },
   c003: {
@@ -154,7 +154,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage6', 'offKeyStatus'],
     description:
       'Kev would play this frenetic Beethoven piece if he was any good at piano',
   },
@@ -164,7 +164,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage6', 'offKeyStatus'],
     description: 'It turns out that Mozart was quite good at music',
   },
   c005: {
@@ -173,7 +173,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage6', 'offKeyStatus'],
     description:
       'This Strauss Waltz always makes Kev think of space thanks to Stanley Kubrick',
   },
@@ -183,7 +183,7 @@ window.Records = {
     type: RecordTypes.blues,
     src: '/assets/objects/bluesRecord.png',
     icon: '/assets/icons/blues.png',
-    actions: ['offKeyStatus', 'damage1'],
+    actions: ['damage6', 'offKeyStatus'],
     description:
       'This Paganini music was the theme tune for the south bank show',
   },
@@ -193,7 +193,7 @@ window.Records = {
     type: RecordTypes.hiphop,
     src: '/assets/objects/hiphopRecord.png',
     icon: '/assets/icons/hiphop.png',
-    actions: ['groovyStatus', 'offKeyStatus', 'damage1'],
+    actions: ['damage4', 'groovyStatus', 'offKeyStatus'],
     description: 'Lyrical learnings from the master MC KRSOne',
   },
   h002: {
@@ -202,7 +202,7 @@ window.Records = {
     type: RecordTypes.hiphop,
     src: '/assets/objects/hiphopRecord.png',
     icon: '/assets/icons/hiphop.png',
-    actions: ['groovyStatus', 'offKeyStatus', 'damage1'],
+    actions: ['damage4', 'groovyStatus', 'offKeyStatus'],
     description: 'Early Tribe called quest masterpiece of hip-funk',
   },
   h003: {
@@ -211,7 +211,7 @@ window.Records = {
     type: RecordTypes.hiphop,
     src: '/assets/objects/hiphopRecord.png',
     icon: '/assets/icons/hiphop.png',
-    actions: ['groovyStatus', 'offKeyStatus', 'damage1'],
+    actions: ['damage4', 'groovyStatus', 'offKeyStatus'],
     description: 'Possibly the coolest tune of all time from Missy Elliot',
   },
   h004: {
@@ -220,7 +220,7 @@ window.Records = {
     type: RecordTypes.hiphop,
     src: '/assets/objects/hiphopRecord.png',
     icon: '/assets/icons/hiphop.png',
-    actions: ['groovyStatus', 'offKeyStatus', 'damage1'],
+    actions: ['damage4', 'groovyStatus', 'offKeyStatus'],
     description: 'M.I.A. tune sampling The Clash',
   },
   h005: {
@@ -229,7 +229,7 @@ window.Records = {
     type: RecordTypes.hiphop,
     src: '/assets/objects/hiphopRecord.png',
     icon: '/assets/icons/hiphop.png',
-    actions: ['groovyStatus', 'offKeyStatus', 'damage1'],
+    actions: ['damage4', 'groovyStatus', 'offKeyStatus'],
     description: "Taken from Skinny Man's Council Estate of Man",
   },
   h006: {
@@ -238,7 +238,7 @@ window.Records = {
     type: RecordTypes.hiphop,
     src: '/assets/objects/hiphopRecord.png',
     icon: '/assets/icons/hiphop.png',
-    actions: ['groovyStatus', 'offKeyStatus', 'damage1'],
+    actions: ['damage4', 'groovyStatus', 'offKeyStatus'],
     description: 'Check out the video for this classic Roots Manuva tune',
   },
   n001: {
@@ -294,7 +294,7 @@ window.Records = {
     src: '/assets/objects/normalRecord.png',
     icon: '/assets/characters/blankSquare.png',
     actions: ['damage1'],
-    description: "In Kev's defence, this one was bought for him by his sister",
+    description: "In Kev's defense, this one was bought for him by his sister",
   },
   n007: {
     name: 'Blackbird',
@@ -302,7 +302,7 @@ window.Records = {
     type: RecordTypes.normal,
     src: '/assets/objects/normalRecord.png',
     icon: '/assets/characters/blankSquare.png',
-    actions: ['damage1'],
+    actions: ['damage1', 'damage2', 'damage3'],
     description:
       'If you ask Kev. Sometimes he will say this is his favourite song',
   },
@@ -312,7 +312,7 @@ window.Records = {
     type: RecordTypes.rock,
     src: '/assets/objects/rockRecord.png',
     icon: '/assets/icons/rock.png',
-    actions: ['groovyStatus', 'damage1'],
+    actions: ['damage5', 'groovyStatus'],
     description: 'Lord of the Rings inspired Led Zepplin',
   },
   r002: {
@@ -321,7 +321,7 @@ window.Records = {
     type: RecordTypes.rock,
     src: '/assets/objects/rockRecord.png',
     icon: '/assets/icons/rock.png',
-    actions: ['damage1'],
+    actions: ['damage5'],
     description: 'Ozzy and the crew will melt your face off',
   },
   r003: {
@@ -330,17 +330,17 @@ window.Records = {
     type: RecordTypes.rock,
     src: '/assets/objects/rockRecord.png',
     icon: '/assets/icons/rock.png',
-    actions: ['damage1'],
+    actions: ['damage5', 'damage2', 'damage3', 'groovyStatus', 'offKeyStatus'],
     description: "This QOTSA tune is one of Kev's most covered songs",
   },
   r004: {
-    name: 'Everyday is a winding road',
-    artist: 'Sheryl Crow',
+    name: 'Should I stay or should I go',
+    artist: 'The Clash',
     type: RecordTypes.rock,
     src: '/assets/objects/rockRecord.png',
     icon: '/assets/icons/rock.png',
-    actions: ['damage1'],
-    description: "There's a live video of Kev covering this tune on YouTube",
+    actions: ['damage5'],
+    description: "This is one of Isla's favorites",
   },
   r005: {
     name: 'Talk of the town',
@@ -348,7 +348,7 @@ window.Records = {
     type: RecordTypes.rock,
     src: '/assets/objects/rockRecord.png',
     icon: '/assets/icons/rock.png',
-    actions: ['damage1'],
+    actions: ['damage5'],
     description: "The Pretenders are also one of Kev's Mum's favourite bands",
   },
   r006: {
@@ -357,7 +357,7 @@ window.Records = {
     type: RecordTypes.rock,
     src: '/assets/objects/rockRecord.png',
     icon: '/assets/icons/rock.png',
-    actions: ['damage1'],
+    actions: ['damage5'],
     description: 'Kev has covered this Tina Turner tune with multiple bands',
   },
   t001: {
@@ -366,7 +366,7 @@ window.Records = {
     type: RecordTypes.techno,
     src: '/assets/objects/technoRecord.png',
     icon: '/assets/icons/techno.png',
-    actions: ['damage1'],
+    actions: ['damage7'],
     description: 'A lesson in filtering from CJ Bolland',
   },
   t002: {
@@ -375,7 +375,7 @@ window.Records = {
     type: RecordTypes.techno,
     src: '/assets/objects/technoRecord.png',
     icon: '/assets/icons/techno.png',
-    actions: ['damage1'],
+    actions: ['damage7', 'damage2'],
     description:
       "Daft Punk are Kev's production heroes and the inspiration for much of his early music",
   },
@@ -385,7 +385,7 @@ window.Records = {
     type: RecordTypes.techno,
     src: '/assets/objects/technoRecord.png',
     icon: '/assets/icons/techno.png',
-    actions: ['damage1'],
+    actions: ['damage7'],
     description:
       "This Fatboy Slim tune was one of the records that got Kev into dance music in the 90's",
   },
@@ -395,7 +395,7 @@ window.Records = {
     type: RecordTypes.techno,
     src: '/assets/objects/technoRecord.png',
     icon: '/assets/icons/techno.png',
-    actions: ['damage1'],
+    actions: ['damage7'],
     description:
       'This Bodyrox tune was the signature tune from one of the best summers',
   },
@@ -405,7 +405,7 @@ window.Records = {
     type: RecordTypes.techno,
     src: '/assets/objects/technoRecord.png',
     icon: '/assets/icons/techno.png',
-    actions: ['damage1'],
+    actions: ['damage7'],
     description: 'Kev has produced a remix of this Donna Summer classic',
   },
   t006: {
@@ -414,7 +414,7 @@ window.Records = {
     type: RecordTypes.techno,
     src: '/assets/objects/technoRecord.png',
     icon: '/assets/icons/techno.png',
-    actions: ['damage1'],
+    actions: ['damage7'],
     description: 'Kev uses this Aphex Twin tune to test out new sound systems',
   },
 };

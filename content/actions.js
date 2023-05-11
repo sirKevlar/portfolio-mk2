@@ -36,6 +36,78 @@ window.Actions = {
       { type: 'stateChange', status: { type: 'leech', expiresIn: 100 } },
     ],
   },
+  damage4: {
+    name: 'snare "pop"',
+    description: 'A punch in the brain (enemy loses 10 hp)',
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses {ACTION}',
+      },
+      { type: 'animation', animation: 'spin' },
+      { type: 'stateChange', damage: 10 },
+    ],
+  },
+  damage5: {
+    name: 'cymbal "crash"',
+    description: 'Instant tinnitus (enemy loses 10 hp)',
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses {ACTION}',
+      },
+      { type: 'animation', animation: 'spin' },
+      { type: 'stateChange', damage: 10 },
+    ],
+  },
+  damage6: {
+    name: 'timpani "thunder"',
+    description: 'A boom in the bowels (enemy loses 10 hp)',
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses {ACTION}',
+      },
+      { type: 'animation', animation: 'spin' },
+      { type: 'stateChange', damage: 10 },
+    ],
+  },
+  damage7: {
+    name: 'synth "screech"',
+    description: 'A burst ear drum (enemy loses 10 hp)',
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses {ACTION}',
+      },
+      { type: 'animation', animation: 'spin' },
+      { type: 'stateChange', damage: 10 },
+    ],
+  },
+  damage8: {
+    name: 'alt "drone"',
+    description: 'Instant depression (enemy loses 10 hp)',
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses {ACTION}',
+      },
+      { type: 'animation', animation: 'spin' },
+      { type: 'stateChange', damage: 10 },
+    ],
+  },
+  damage9: {
+    name: 'amp "crunch"',
+    description: 'Instant depression (enemy loses 10 hp)',
+    success: [
+      {
+        type: 'textMessage',
+        text: '{CASTER} uses {ACTION}',
+      },
+      { type: 'animation', animation: 'spin' },
+      { type: 'stateChange', damage: 10 },
+    ],
+  },
   groovyStatus: {
     name: 'In the groove',
     description: 'Give yourself groovy status (recover 5 hp per turn)',

@@ -104,6 +104,7 @@ class OverworldEvent {
 
   displayMp3s(resolve) {
     const mp3Gallery = new DisplayMp3s({
+      album: this.event.album,
       mp3s: this.event.mp3s,
       descriptions: this.event.descriptions,
       cover: this.event.cover,
@@ -157,12 +158,7 @@ class OverworldEvent {
   }
 
   repairVinyl(resolve) {
-    for (let record in window.playerState.records) {
-      // console.log(window.playerState.records[record]);
-      // window.playerState.records[record].hp =
-      //   window.playerState.records[record].maxHp;
-      // console.log(window.playerState.records[record]);
-    }
+    window.playerState.repairRecords();
     resolve();
   }
 

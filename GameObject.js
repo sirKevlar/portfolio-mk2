@@ -18,7 +18,6 @@ class GameObject {
 
   mount(map) {
     this.isMounted = true;
-    map.addWall(this.x, this.y);
 
     //if we have behavior, launch after delay
     setTimeout(() => {

@@ -12,7 +12,6 @@
     position: absolute;
     left: 440px;
     width: 120%;
-    top: -184px;
     display:flex;
     flex-direction: column;
     transform: scale(0.7);
@@ -39,4 +38,12 @@
 
 .DisplayMp3s_cover {
     transform: scale(0.5) translateY(-32%) translateX(-44%);
+}
+
+.flatPackGallows {
+    top: -184px;
+}
+
+.theLiar {
+    top: -50px;
 }
