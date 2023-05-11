@@ -4,6 +4,7 @@ class Person extends GameObject {
     this.movingProgressRemaining = 0;
     this.isStanding = false;
     this.isWalking = false;
+    this.intentPosition = null; //null || [x,y]
 
     this.isPlayerControlled = config.isPlayerControlled || false;
 
@@ -52,6 +53,9 @@ class Person extends GameObject {
       //ready to walk
       this.isWalking = true;
       this.movingProgressRemaining = 16;
+      //next position intent
+      const intentPosition = utils.nextPosition(this.x, this.y, this.direction);
+      this.intentPosition = [intentPosition.x, intentPosition.y];
       this.updateSprite(state);
     }
 
@@ -73,6 +77,7 @@ class Person extends GameObject {
 
     if (this.movingProgressRemaining === 0) {
       //we finished walking
+      this.intentPosition = null;
       utils.emitEvent('PersonWalkingComplete', {
         whoId: this.id,
       });

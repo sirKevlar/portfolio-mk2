@@ -35,7 +35,19 @@ class OverworldMap {
 
   isSpaceTaken(currentX, currentY, direction) {
     const { x, y } = utils.nextPosition(currentX, currentY, direction);
-    return this.walls[`${x},${y}`] || false;
+    if (this.walls[`${x},${y}`]) {
+      return true;
+    }
+    //Check for game objects
+    return Object.values(this.gameObjects).find((obj) => {
+      if (obj.x === x && obj.y === y) {
+        return true;
+      }
+      if (obj.intentPosition && obj.intentPosition[0] === x && obj.intentPosition[1] === y) {
+        return true;
+      } 
+      return false;
+    });
   }
 
   mountObjects() {
