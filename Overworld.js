@@ -87,68 +87,82 @@ class Overworld {
     //create progress tracker
     this.progress = new Progress();
 
-    //show title screen
-    this.titleScreen = new TitleScreen({
-      progress: this.progress,
-    });
-    const useSaveFile = await this.titleScreen.init(container);
+    //store screen size
+    const { height: screenHeight, width: screenWidth } = screen;
+    const isTabletOrPhone =
+      (screenHeight < 830 && screenWidth < 1200) ||
+      (screenHeight < 1200 && screenWidth < 830);
 
-    //load saves if exist
-    let initialHeroState = null;
-    if (useSaveFile) {
-      //comment out all within this block to remove save or delete in devtools in browser
-      this.progress.load();
-      initialHeroState = {
-        x: this.progress.startingHeroX,
-        y: this.progress.startingHeroY,
-        direction: this.progress.startingHeroDirection,
-      };
+    if (isTabletOrPhone) {
+      this.warningModal = new WarningModal(screenHeight, screenWidth);
+      await this.warningModal.init(container);
+    } else {
+      //show title screen
+      this.titleScreen = new TitleScreen({
+        progress: this.progress,
+      });
+      const useSaveFile = await this.titleScreen.init(container);
+
+      //load saves if exist
+      let initialHeroState = null;
+      if (useSaveFile) {
+        //comment out all within this block to remove save or delete in devtools in browser
+        this.progress.load();
+        initialHeroState = {
+          x: this.progress.startingHeroX,
+          y: this.progress.startingHeroY,
+          direction: this.progress.startingHeroDirection,
+        };
+      }
+
+      //load hud
+      this.hud = new Hud();
+      this.hud.init(document.querySelector('.game-container'));
+
+      //start the first map
+      this.startMap(
+        window.OverworldMaps[this.progress.mapId],
+        initialHeroState
+      );
+
+      //create controls
+      this.bindActionInput();
+      this.bindHeroPositionCheck();
+
+      this.directionInput = new DirectionInput();
+      this.directionInput.init();
+      container.classList.add('sceneTransitionSlow');
+
+      //start game
+      this.startGameLoop();
+
+      this.map.startCutscene([
+        {
+          type: 'textMessage',
+          text: 'You open your eyes. Your vision is blurred and your surroundings are unfamiliar. You thought you were visiting the portfolio site of Kev Morel, but instead you seem to be trapped in some sort of digital nightmare!',
+        },
+        { who: 'hero', type: 'walk', direction: 'down' },
+        { who: 'hero', type: 'walk', direction: 'down' },
+        { who: 'hero', type: 'walk', direction: 'down' },
+        { who: 'hero', type: 'walk', direction: 'down' },
+        { who: 'hero', type: 'walk', direction: 'down' },
+        { who: 'hero', type: 'walk', direction: 'down' },
+        { who: 'slime', type: 'walk', direction: 'right' },
+        { who: 'slime', type: 'walk', direction: 'right' },
+        { who: 'slime', type: 'walk', direction: 'right' },
+        { who: 'slime', type: 'walk', direction: 'right' },
+        { who: 'slime', type: 'walk', direction: 'right' },
+        { who: 'slime', type: 'walk', direction: 'right' },
+        {
+          type: 'textMessage',
+          text: 'A friendly slime approaches and reassures you that this IS the portfolio site of Kev Morel and that exploring the site will reveal some of his projects... If you prefer a boring static website, use the laptop in the North East of this room',
+        },
+        {
+          type: 'textMessage',
+          text: 'You spot a note on the coffee table near the sofa... This could be a good place to start... USE "WASD" OR ARROW KEYS TO MOVE AROUND, "ENTER" TO INTERACT WITH STUFF, SPEAK TO PEOPLE AND SPEED UP TEXT AND "ESC" TO PAUSE OR SWAP VINYL',
+        },
+        // { who: 'slime', type: 'stand', direction: 'right', time: 1000 },
+      ]);
     }
-
-    //load hud
-    this.hud = new Hud();
-    this.hud.init(document.querySelector('.game-container'));
-
-    //start the first map
-    this.startMap(window.OverworldMaps[this.progress.mapId], initialHeroState);
-
-    //create controls
-    this.bindActionInput();
-    this.bindHeroPositionCheck();
-
-    this.directionInput = new DirectionInput();
-    this.directionInput.init();
-    container.classList.add('sceneTransitionSlow');
-
-    //start game
-    this.startGameLoop();
-
-    this.map.startCutscene([
-      {
-        type: 'textMessage',
-        text: 'You open your eyes. Your vision is blurred and your surroundings are unfamiliar. You thought you were visiting the portfolio site of Kev Morel, but instead you seem to be trapped in some sort of digital nightmare!',
-      },
-      { who: 'hero', type: 'walk', direction: 'down' },
-      { who: 'hero', type: 'walk', direction: 'down' },
-      { who: 'hero', type: 'walk', direction: 'down' },
-      { who: 'hero', type: 'walk', direction: 'down' },
-      { who: 'hero', type: 'walk', direction: 'down' },
-      { who: 'hero', type: 'walk', direction: 'down' },
-      { who: 'slime', type: 'walk', direction: 'right' },
-      { who: 'slime', type: 'walk', direction: 'right' },
-      { who: 'slime', type: 'walk', direction: 'right' },
-      { who: 'slime', type: 'walk', direction: 'right' },
-      { who: 'slime', type: 'walk', direction: 'right' },
-      { who: 'slime', type: 'walk', direction: 'right' },
-      {
-        type: 'textMessage',
-        text: 'A friendly slime approaches and reassures you that this IS the portfolio site of Kev Morel and that exploring the site will reveal some of his projects... If you prefer a boring static website, use the laptop in the North East of this room',
-      },
-      {
-        type: 'textMessage',
-        text: 'You spot a note on the coffee table near the sofa... This could be a good place to start... USE "WASD" OR ARROW KEYS TO MOVE AROUND, "ENTER" TO INTERACT WITH STUFF, SPEAK TO PEOPLE AND SPEED UP TEXT AND "ESC" TO PAUSE OR SWAP VINYL',
-      },
-      // { who: 'slime', type: 'stand', direction: 'right', time: 1000 },
-    ]);
   }
 }

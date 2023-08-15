@@ -43,9 +43,13 @@ class OverworldMap {
       if (obj.x === x && obj.y === y) {
         return true;
       }
-      if (obj.intentPosition && obj.intentPosition[0] === x && obj.intentPosition[1] === y) {
+      if (
+        obj.intentPosition &&
+        obj.intentPosition[0] === x &&
+        obj.intentPosition[1] === y
+      ) {
         return true;
-      } 
+      }
       return false;
     });
   }
@@ -259,7 +263,7 @@ window.OverworldMaps = {
               },
               {
                 type: 'textMessage',
-                text: "Finally a word of warning... Don't go thru the south door of the office or games room, lest ye will perish!....... My advice would be to go speak to Kev's Mum first. She's the other person in this room. Happy exploring!",
+                text: "My advice would be to go speak to Kev's Mum first. She's the other person in this room. Happy exploring!",
               },
             ],
           },
@@ -353,7 +357,7 @@ window.OverworldMaps = {
             events: [
               {
                 type: 'textMessage',
-                text: "Oh you've met Jim then? Such a lovely young man! He has been Kev's friend for 23 years. Have you met Kev's daughters yet? They're in the room north of here and they are called Isla and Alys",
+                text: "Oh you've met Jim then? Such a lovely young man! He has been Kev's friend for 25 years. Have you met Kev's daughters yet? They're in the room north of here and they are called Isla and Alys",
                 faceHero: 'mum',
               },
               { type: 'addStoryFlag', flag: 'TALKED_TO_MUM_SIX' },
@@ -439,6 +443,11 @@ window.OverworldMaps = {
               },
               {
                 type: 'textMessage',
+                text: "If you're in a hurry, you might want to just click on the painting with the Northcoders logo for some info about Kev's latest projects at work",
+                faceHero: 'mum',
+              },
+              {
+                type: 'textMessage',
                 text: "You can talk to characters in this game. They might help you out or they might even want a battle. In this game we fight with our record collections. All of the music in this game is part of Kev's eclectic music collection",
                 faceHero: 'mum',
               },
@@ -458,22 +467,22 @@ window.OverworldMaps = {
         y: utils.withGrid(9),
         src: '/assets/characters/slime.png',
         behaviorLoop: [
-          // { type: 'walk', direction: 'left' },
-          // { type: 'walk', direction: 'left' },
-          // { type: 'walk', direction: 'left' },
-          // { type: 'walk', direction: 'left' },
-          // { type: 'walk', direction: 'left' },
-          // { type: 'stand', direction: 'left', time: 1400 },
-          // { type: 'walk', direction: 'right' },
-          // { type: 'walk', direction: 'right' },
-          // { type: 'walk', direction: 'right' },
-          // { type: 'walk', direction: 'right' },
-          // { type: 'walk', direction: 'right' },
-          // { type: 'walk', direction: 'right' },
-          // { type: 'walk', direction: 'right' },
-          // { type: 'stand', direction: 'right', time: 1100 },
-          // { type: 'walk', direction: 'left' },
-          // { type: 'walk', direction: 'left' },
+          { type: 'walk', direction: 'left' },
+          { type: 'walk', direction: 'left' },
+          { type: 'walk', direction: 'left' },
+          { type: 'walk', direction: 'left' },
+          { type: 'walk', direction: 'left' },
+          { type: 'stand', direction: 'left', time: 1400 },
+          { type: 'walk', direction: 'right' },
+          { type: 'walk', direction: 'right' },
+          { type: 'walk', direction: 'right' },
+          { type: 'walk', direction: 'right' },
+          { type: 'walk', direction: 'right' },
+          { type: 'walk', direction: 'right' },
+          { type: 'walk', direction: 'right' },
+          { type: 'stand', direction: 'right', time: 1100 },
+          { type: 'walk', direction: 'left' },
+          { type: 'walk', direction: 'left' },
         ],
         clickAction: [
           {
@@ -907,7 +916,7 @@ window.OverworldMaps = {
             events: [
               {
                 type: 'textMessage',
-                text: "Rob has a sick collection blood, but Kev's is as eclectic as it gets. Now let me fix those vinyl up",
+                text: "Rob has a sick collection blood, but Kev's is as wild and wonderful as it gets. Now let me fix those vinyl up",
                 faceHero: 'jim',
               },
               { type: 'repairVinyl' },
@@ -973,7 +982,7 @@ window.OverworldMaps = {
             events: [
               {
                 type: 'textMessage',
-                text: "You must be northern yourself pal. Your funk chin is powerful! Enjoy that vinyl of mine and before you ask, yeah I will mend your current lineup. I would go and talk to Kev's kids next, well if you want the story to continue anyway...",
+                text: "You must be northern yourself pal. Bet you love gravy! Enjoy that vinyl of mine and before you ask, yeah I will mend your current lineup. I would go and talk to Kev's kids next, well if you want the story to continue anyway...",
                 faceHero: 'jim',
               },
               { type: 'repairVinyl' },
@@ -1471,7 +1480,7 @@ window.OverworldMaps = {
             events: [
               {
                 type: 'textMessage',
-                text: "You are one seriously tough individual! I think you might be ready to face off against the most eclectic music collection you're likely to see, Kev's... Good luck!",
+                text: "You are one seriously tough individual! I think you might be ready to face off against the heaviest music collection you're likely to see, Kev's... Good luck!",
                 faceHero: 'rob',
               },
             ],
@@ -1940,7 +1949,7 @@ window.OverworldMaps = {
             events: [
               {
                 type: 'textMessage',
-                text: "Isla slow claps you sarcastically... Well done! You managed to beat a ten year old. Don't think that just because she's my little sister, that Alys will be any easier to beat. Good luck!",
+                text: "Isla slow claps you sarcastically... Well done! You managed to beat an eleven year old. Don't think that just because she's my little sister, that Alys will be any easier to beat. Good luck!",
                 faceHero: 'isla',
               },
             ],
